@@ -8,6 +8,8 @@ import java.awt.*;
 
 public class MainForm {
 
+    //TODO add map of the hotel for each floor
+
     private double xFormPosition;
     private double yFormPosition;
 

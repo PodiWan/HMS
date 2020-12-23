@@ -20,6 +20,7 @@ import javafx.stage.StageStyle;
 
 public class LoginForm {
 
+    //TODO write credentials to file AND read them when logging in
     public void start(Stage primaryStage) throws Exception{
         int formWidth = 400;
         int formHeight = 275;

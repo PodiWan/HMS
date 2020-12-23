@@ -1,4 +1,24 @@
 public class Room {
-    private int number;
-    private int price;
+    //TODO maybe refactor to switch to private
+
+    public int id;
+    public static int overallId = 0;
+    public int floor;
+    public int number;
+    public int price;
+
+    Room(int id, int floor, int number, int price){
+        this.id = id;
+        this.floor = floor;
+        this.number = number;
+        this.price = price;
+    }
+
+    Room(int floor, int number, int price){
+        this(++overallId, floor, number, price);
+    }
+
+    Room(){
+        this(++overallId,0, 0, 0);
+    }
 }

@@ -2,8 +2,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;
 
-
 public class BookingItem extends Pane {
+
+    //TODO add update/delete on click
+
     private Label lBookingInfo;
     private String strBookingInfo;
 

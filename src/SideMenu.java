@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public class SideMenu extends VBox {
 
+    //TODO add colour back?
     ArrayList<BookingItem> bookingItemList;
 
     public SideMenu() {
