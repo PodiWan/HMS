@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 public class BookingMenu {
 
+    //TODO notify user about incorrect data
     public boolean start(ArrayList<BookingItem> bookingItems) throws Exception{
         Dialog<Booking> dialog = new Dialog<Booking>();
         dialog.setTitle("Add booking");
@@ -26,15 +27,20 @@ public class BookingMenu {
 
         ComboBox<String> receptionist = new ComboBox<String>();
         receptionist.setPromptText("Receptionist");
+        //fill the combobox options with the receptionists
         for (var iterator : Main.mainController.receptionistArrayList) {
             receptionist.getItems().add(Integer.toString(iterator.id) + ". " + iterator.name);
         }
 
         ComboBox<String> person = new ComboBox<String>();
         person.setPromptText("Person");
+        //fill the combobox options with the people staying at the hotel
         for (var iterator : Main.mainController.personArrayList) {
             person.getItems().add(Integer.toString(iterator.id) + ". " + iterator.name);
         }
+
+        DatePicker startDate = new DatePicker();
+        DatePicker endDate = new DatePicker();
 
         grid.add(new Label("Room id:"), 0, 0);
         grid.add(room, 1, 0);
@@ -42,6 +48,10 @@ public class BookingMenu {
         grid.add(receptionist, 1, 1);
         grid.add(new Label("Person id:"), 0, 2);
         grid.add(person, 1, 2);
+        grid.add(new Label("Start date:"), 0, 3);
+        grid.add(startDate, 1, 3);
+        grid.add(new Label("End date:"), 0, 4);
+        grid.add(endDate, 1, 4);
 
         ButtonType loginButtonType = new ButtonType("Submit", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
@@ -57,7 +67,7 @@ public class BookingMenu {
                         Integer.parseInt(person.getValue().split(Pattern.quote("."))[0]));
 
                 bookingItems.add(new BookingItem(
-                        Main.mainController.personArrayList.get(newBooking.bookingPerson.id).name));
+                        Main.mainController.personArrayList.get(newBooking.bookingPerson.id - 1).name));
                 return newBooking;
             }
             return null;

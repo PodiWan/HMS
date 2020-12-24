@@ -111,16 +111,12 @@ public class MainForm {
         ScrollPane sp = new ScrollPane();
         sideMenu = new SideMenu();
         sp.setContent(sideMenu);
-        sp.setStyle("-fx-background-color: #5BD7C0");
+        sp.setStyle("-fx-background: #5BD7C0");
 
         sideMenu.prefWidthProperty().bind(primaryStage.widthProperty().multiply(0.20));
         sideMenu.setPrefHeight(Region.USE_COMPUTED_SIZE);
         borderPane.setLeft(sp);
         borderPane.setTop(topBar);
-
-        BookingItem b = new BookingItem("Text aaaaaaaaaa");
-        sideMenu.bookingItemList.add(b);
-        sideMenu.bookingItemList.add(new BookingItem());
 
         bcMenu = new BookingController(sideMenu);
         bcMenu.prefWidthProperty().bind(sideMenu.widthProperty());
