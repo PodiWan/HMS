@@ -27,7 +27,7 @@ public class Main extends Application {
         mainController.receptionistArrayList.add(new Receptionist(true, "Tabian"));
         mainController.receptionistArrayList.add(new Receptionist(true, "Quesmin"));
         mainController.receptionistArrayList.add(new Receptionist(true, "Podi"));
-        mainController.receptionistArrayList.add(new Receptionist(false, "Septimiu"));
+        mainController.receptionistArrayList.add(new Receptionist(false, "Victor"));
 
 //        bookingArrayList.add(new Booking());
 
