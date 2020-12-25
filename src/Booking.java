@@ -12,7 +12,7 @@ public class Booking {
 
     public Booking(int id, int room, int receptionist, int person, Date bookingStart, Date bookingEnd){
         this.id = id;
-        this.bookedRoom = Main.mainController.roomArrayList.get(room);
+        this.bookedRoom = Main.mainController.roomArrayList.get(room - 1);
         this.bookingReceptionist = new Receptionist();
         this.bookingPerson = Main.mainController.personArrayList.get(person);
         this.bookingStart = bookingStart;

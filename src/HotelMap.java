@@ -1,18 +1,18 @@
+import javafx.animation.FillTransition;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Label;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
+import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
-import java.awt.*;
-//import java.util.ArrayList;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 public class HotelMap extends GridPane {
 
@@ -75,6 +75,15 @@ public class HotelMap extends GridPane {
                 this.add(roomTile, roomsOnActiveFloor++, 3);
             }
         }
+    }
+
+    void higlightRoom(Room selectedRoom){
+        RoomTile highlightRoom = null;
+
+        for(var node : this.getChildren())
+            if(node instanceof RoomTile && ((RoomTile) node).roomId == selectedRoom.id)
+                highlightRoom = ((RoomTile) node);
+        highlightRoom.setStyle("-fx-background-color: #F1C95F");
     }
 
     HotelMap(){

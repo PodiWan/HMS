@@ -45,9 +45,14 @@ public class BookingItem extends Pane {
         });
         contextMenu.getItems().addAll(menuItemDelete);
         this.setOnMouseClicked(mouseEvent -> {
+            //when left-clicked
             if(mouseEvent.getButton() == MouseButton.PRIMARY) {
-                MainForm.hm.activeFloor = this.heldBooking.bookedRoom.floor;
-                MainForm.hm.updateMap();
+                //move the map to the correct floor (if necessary) and highlight the room
+                if(MainForm.hm.activeFloor != this.heldBooking.bookedRoom.floor) {
+                    MainForm.hm.activeFloor = this.heldBooking.bookedRoom.floor;
+                    MainForm.hm.updateMap();
+                }
+                MainForm.hm.higlightRoom(this.heldBooking.bookedRoom);
             }
             if(mouseEvent.getButton() == MouseButton.SECONDARY)
                 contextMenu.show(this, mouseEvent.getScreenX(), mouseEvent.getScreenY());
