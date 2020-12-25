@@ -8,4 +8,5 @@ public class MainController {
     ArrayList<Room> roomArrayList = new ArrayList<>();
     ArrayList<Receptionist> receptionistArrayList = new ArrayList<>();
     ArrayList<Booking> bookingArrayList = new ArrayList<>();
+    SideMenu sideMenu = new SideMenu();
 }

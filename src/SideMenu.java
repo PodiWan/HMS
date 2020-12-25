@@ -10,6 +10,10 @@ import java.util.ArrayList;
 public class SideMenu extends VBox {
     ArrayList<BookingItem> bookingItemList;
 
+    public void deleteItem(int index) {
+        this.getChildren().remove(index);
+    }
+
     public SideMenu() {
 
         this.setStyle("-fx-background-color: #5BD7C0");

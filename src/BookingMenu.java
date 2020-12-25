@@ -10,6 +10,35 @@ import java.util.regex.Pattern;
 
 public class BookingMenu {
 
+    ComboBox<String> room = new ComboBox<String>();
+    ComboBox<String> receptionist = new ComboBox<String>();
+    ComboBox<String> person = new ComboBox<String>();
+
+    BookingMenu(){
+        //fill the combobox options with the rooms
+        for (var iterator : Main.mainController.roomArrayList) {
+            boolean booked = false;
+            for(var booking : Main.mainController.bookingArrayList) {
+                if (booking.bookedRoom.id == iterator.id) {
+                    booked = true;
+                    break;
+                }
+            }
+            if(!booked)
+                room.getItems().add(iterator.id + ". " + iterator.floor + "-" +iterator.number);
+        }
+
+        //fill the combobox options with the receptionists
+        for (var iterator : Main.mainController.receptionistArrayList) {
+            receptionist.getItems().add(iterator.id + ". " + iterator.name);
+        }
+
+        //fill the combobox options with the people staying at the hotel
+        for (var iterator : Main.mainController.personArrayList) {
+            person.getItems().add(iterator.id + ". " + iterator.name);
+        }
+    }
+
     public boolean start(ArrayList<BookingItem> bookingItems) throws Exception{
         Dialog<Booking> dialog = new Dialog<Booking>();
         dialog.setTitle("Add booking");
@@ -20,35 +49,18 @@ public class BookingMenu {
         grid.setVgap(10);
         grid.setPadding(new Insets(20, 150, 10, 10));
 
-        ComboBox<String> room = new ComboBox<String>();
-        room.setPromptText("Room");
-        //fill the combobox options with the rooms
-        for (var iterator : Main.mainController.roomArrayList) {
-            room.getItems().add(Integer.toString(iterator.id) + ". " + iterator.floor + "-" +iterator.number);
-        }
-
-        ComboBox<String> receptionist = new ComboBox<String>();
+        room.setPromptText("Available room");
         receptionist.setPromptText("Receptionist");
-        //fill the combobox options with the receptionists
-        for (var iterator : Main.mainController.receptionistArrayList) {
-            receptionist.getItems().add(Integer.toString(iterator.id) + ". " + iterator.name);
-        }
-
-        ComboBox<String> person = new ComboBox<String>();
         person.setPromptText("Person");
-        //fill the combobox options with the people staying at the hotel
-        for (var iterator : Main.mainController.personArrayList) {
-            person.getItems().add(Integer.toString(iterator.id) + ". " + iterator.name);
-        }
 
         DatePicker startDate = new DatePicker();
         DatePicker endDate = new DatePicker();
 
-        grid.add(new Label("Room id:"), 0, 0);
+        grid.add(new Label("Room:"), 0, 0);
         grid.add(room, 1, 0);
-        grid.add(new Label("Receptionist id:"), 0, 1);
+        grid.add(new Label("Receptionist:"), 0, 1);
         grid.add(receptionist, 1, 1);
-        grid.add(new Label("Person id:"), 0, 2);
+        grid.add(new Label("Person:"), 0, 2);
         grid.add(person, 1, 2);
         grid.add(new Label("Start date:"), 0, 3);
         grid.add(startDate, 1, 3);
@@ -92,6 +104,8 @@ public class BookingMenu {
                             Date.from(startDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
                             Date.from(endDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
 
+                    //add the new booking to the list of bookings
+                    Main.mainController.bookingArrayList.add(newBooking);
                     //add the new booking to the side menu
                     bookingItems.add(new BookingItem(
                             Main.mainController.personArrayList.get(newBooking.bookingPerson.id - 1).name

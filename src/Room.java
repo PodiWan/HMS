@@ -18,6 +18,10 @@ public class Room {
         this(++overallId, floor, number, price);
     }
 
+    Room(int id){
+        this(id, 0, 0, 0);
+    }
+
     Room(){
         this(++overallId,0, 0, 0);
     }

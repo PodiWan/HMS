@@ -22,7 +22,6 @@ public class MainForm {
     private double formMinWidth;
     private double formMinHeight;
 
-    private SideMenu sideMenu;
     private BookingController bcMenu;
 
     public void resize(Stage stage){
@@ -109,22 +108,22 @@ public class MainForm {
         topBar.getChildren().add(btnClose);
 
         ScrollPane sp = new ScrollPane();
-        sideMenu = new SideMenu();
-        sp.setContent(sideMenu);
+        sp.setContent(Main.mainController.sideMenu);
         sp.setStyle("-fx-background: #5BD7C0");
 
-        sideMenu.prefWidthProperty().bind(primaryStage.widthProperty().multiply(0.20));
-        sideMenu.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        Main.mainController.sideMenu.prefWidthProperty().bind(primaryStage.widthProperty().multiply(0.20));
+        Main.mainController.sideMenu.setPrefHeight(Region.USE_COMPUTED_SIZE);
         borderPane.setLeft(sp);
         borderPane.setTop(topBar);
 
-        bcMenu = new BookingController(sideMenu);
-        bcMenu.prefWidthProperty().bind(sideMenu.widthProperty());
-        sideMenu.getChildren().add(bcMenu);
+        bcMenu = new BookingController(Main.mainController.sideMenu);
+        bcMenu.prefWidthProperty().bind(Main.mainController.sideMenu.widthProperty());
+        Main.mainController.sideMenu.getChildren().add(bcMenu);
 
-        for(int i = 0; i < sideMenu.bookingItemList.size(); ++i) {
-            sideMenu.bookingItemList.get(i).prefWidthProperty().bind(sideMenu.widthProperty());
-            sideMenu.getChildren().add(sideMenu.bookingItemList.get(i));
+        for(int i = 0; i < Main.mainController.sideMenu.bookingItemList.size(); ++i) {
+            Main.mainController.sideMenu.bookingItemList.get(i).prefWidthProperty()
+                    .bind(Main.mainController.sideMenu.widthProperty());
+            Main.mainController.sideMenu.getChildren().add(Main.mainController.sideMenu.bookingItemList.get(i));
         }
 
         primaryStage.setScene(s);

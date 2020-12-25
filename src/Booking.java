@@ -12,7 +12,7 @@ public class Booking {
 
     public Booking(int id, int room, int receptionist, int person, Date bookingStart, Date bookingEnd){
         this.id = id;
-        this.bookedRoom = new Room();
+        this.bookedRoom = new Room(room);
         this.bookingReceptionist = new Receptionist();
         this.bookingPerson = new Person(person);
         this.bookingStart = bookingStart;
