@@ -10,9 +10,9 @@ import java.util.regex.Pattern;
 
 public class BookingMenu {
 
-    ComboBox<String> room = new ComboBox<String>();
-    ComboBox<String> receptionist = new ComboBox<String>();
-    ComboBox<String> person = new ComboBox<String>();
+    ComboBox<String> room = new ComboBox<>();
+    ComboBox<String> receptionist = new ComboBox<>();
+    ComboBox<String> person = new ComboBox<>();
 
     BookingMenu(){
         //fill the combobox options with the rooms
@@ -39,15 +39,15 @@ public class BookingMenu {
         }
     }
 
-    public boolean start(ArrayList<BookingItem> bookingItems) throws Exception{
-        Dialog<Booking> dialog = new Dialog<Booking>();
+    public boolean start(ArrayList<BookingItem> bookingItems){
+        Dialog<Booking> dialog = new Dialog<>();
         dialog.setTitle("Add booking");
-        dialog.setHeaderText("Insert data regarding booking number ..");
+        dialog.setHeaderText("Insert data regarding booking number: #" + Main.mainController.bookingArrayList.size() + 1);
 
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
-        grid.setPadding(new Insets(20, 150, 10, 10));
+        grid.setPadding(new Insets(20, 40, 10, 10));
 
         room.setPromptText("Available room");
         receptionist.setPromptText("Receptionist");
@@ -86,14 +86,14 @@ public class BookingMenu {
                 setDisable(empty || date.compareTo(firstDate) < 0);
             }
         });
-        ButtonType loginButtonType = new ButtonType("Submit", ButtonBar.ButtonData.OK_DONE);
-        dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+        ButtonType submitButtonType = new ButtonType("Submit", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(submitButtonType, ButtonType.CANCEL);
 
         dialog.getDialogPane().setContent(grid);
 
         //executes on dialog closure, creates a new booking corresponding to a room, receptionist and person
         dialog.setResultConverter(dialogButton -> {
-            if (dialogButton == loginButtonType) {
+            if (dialogButton == submitButtonType) {
                 //try-catch block to ensure the correctness of the data and to notify the user if something went wrong
                 try {
                     //get the id from the comboboxes, it is differentiated from the rest by a ".", i.e.: id. other info
@@ -109,7 +109,7 @@ public class BookingMenu {
                     //add the new booking to the side menu
                     bookingItems.add(new BookingItem(
                             Main.mainController.personArrayList.get(newBooking.bookingPerson.id - 1).name
-                            .concat(" " + newBooking.bookingStart.toString()), newBooking.id));
+                            .concat(" " + newBooking.bookingStart.toString()), newBooking));
                     return newBooking;
                 }
                 catch (Exception ex){

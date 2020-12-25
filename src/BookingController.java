@@ -36,6 +36,11 @@ public class BookingController extends HBox {
             }
         });
 
+        btnAddRoom.setOnAction(e -> {
+            RoomMenu rm = new RoomMenu();
+            rm.start();
+        });
+
         this.prefWidthProperty().bind(parent.widthProperty());
 
         this.getChildren().add(btnAddBooking);

@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class MainForm {
 
-    //TODO add map of the hotel for each floor
+    static HotelMap hm;
 
     private double xFormPosition;
     private double yFormPosition;
@@ -21,8 +21,6 @@ public class MainForm {
 
     private double formMinWidth;
     private double formMinHeight;
-
-    private BookingController bcMenu;
 
     public void resize(Stage stage){
         if(stage.getWidth() == formFullWidth && stage.getHeight() == formFullHeight) {
@@ -57,7 +55,7 @@ public class MainForm {
 
         HBox topBar = new HBox();
         topBar.setAlignment(Pos.TOP_RIGHT);
-        topBar.setStyle("-fx-background-color: #DDDDDD");
+        topBar.setStyle("-fx-background-color: #BFB3A4");
 
         topBar.setOnMousePressed(mouseEvent -> {
             xFormPosition = primaryStage.getX();
@@ -109,14 +107,14 @@ public class MainForm {
 
         ScrollPane sp = new ScrollPane();
         sp.setContent(Main.mainController.sideMenu);
-        sp.setStyle("-fx-background: #5BD7C0");
+        sp.setStyle("-fx-background: #637AA6");
 
         Main.mainController.sideMenu.prefWidthProperty().bind(primaryStage.widthProperty().multiply(0.20));
         Main.mainController.sideMenu.setPrefHeight(Region.USE_COMPUTED_SIZE);
         borderPane.setLeft(sp);
         borderPane.setTop(topBar);
 
-        bcMenu = new BookingController(Main.mainController.sideMenu);
+        BookingController bcMenu = new BookingController(Main.mainController.sideMenu);
         bcMenu.prefWidthProperty().bind(Main.mainController.sideMenu.widthProperty());
         Main.mainController.sideMenu.getChildren().add(bcMenu);
 
@@ -125,6 +123,10 @@ public class MainForm {
                     .bind(Main.mainController.sideMenu.widthProperty());
             Main.mainController.sideMenu.getChildren().add(Main.mainController.sideMenu.bookingItemList.get(i));
         }
+
+        hm = new HotelMap();
+        hm.activeFloor = 0;
+        borderPane.setCenter(hm);
 
         primaryStage.setScene(s);
         primaryStage.show();

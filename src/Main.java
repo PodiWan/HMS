@@ -19,10 +19,11 @@ public class Main extends Application {
         mainController.roomArrayList.add(new Room(0,2,100));
         mainController.roomArrayList.add(new Room(0,3,100));
         mainController.roomArrayList.add(new Room(0,4,100));
-        mainController.roomArrayList.add(new Room(1,1,100));
-        mainController.roomArrayList.add(new Room(1,2,100));
-        mainController.roomArrayList.add(new Room(1,3,100));
-        mainController.roomArrayList.add(new Room(1,4,100));
+        mainController.roomArrayList.add(new Room(1,11,100));
+        mainController.roomArrayList.add(new Room(1,12,100));
+        mainController.roomArrayList.add(new Room(1,13,100));
+        mainController.roomArrayList.add(new Room(1,14,100));
+        mainController.roomArrayList.add(new Room(2,21,100));
 
         mainController.receptionistArrayList.add(new Receptionist(true, "Tabian"));
         mainController.receptionistArrayList.add(new Receptionist(true, "Quesmin"));

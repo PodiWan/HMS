@@ -11,16 +11,16 @@ import java.util.ArrayList;
 
 public class BookingItem extends Pane {
 
-    int bookingId;
+    Booking heldBooking;
     private String strBookingInfo;
 
     public void setBookingInfo(String strBookingInfo) {
         this.strBookingInfo = strBookingInfo;
     }
 
-    public BookingItem(String strBookingInfo, int bookingId) {
+    public BookingItem(String strBookingInfo, Booking booking) {
         this.strBookingInfo = strBookingInfo;
-        this.bookingId = bookingId;
+        this.heldBooking = booking;
 
         Label lBookingInfo = new Label();
         lBookingInfo.setText(this.strBookingInfo);
@@ -37,7 +37,7 @@ public class BookingItem extends Pane {
         MenuItem menuItemDelete = new MenuItem("Delete");
         menuItemDelete.setOnAction(actionEvent -> {
             for (int i = 0; i < Main.mainController.bookingArrayList.size(); ++i) {
-                if(Main.mainController.bookingArrayList.get(i).id == this.bookingId) {
+                if(Main.mainController.bookingArrayList.get(i).id == this.heldBooking.id) {
                     Main.mainController.bookingArrayList.remove(i);
                     Main.mainController.sideMenu.getChildren().remove(i + 1);
                 }
@@ -45,14 +45,16 @@ public class BookingItem extends Pane {
         });
         contextMenu.getItems().addAll(menuItemDelete);
         this.setOnMouseClicked(mouseEvent -> {
-            if(mouseEvent.getButton() == MouseButton.PRIMARY)
-                System.out.println("Left clicked me!");
+            if(mouseEvent.getButton() == MouseButton.PRIMARY) {
+                MainForm.hm.activeFloor = this.heldBooking.bookedRoom.floor;
+                MainForm.hm.updateMap();
+            }
             if(mouseEvent.getButton() == MouseButton.SECONDARY)
                 contextMenu.show(this, mouseEvent.getScreenX(), mouseEvent.getScreenY());
         });
     }
 
     public BookingItem() {
-        this("No text entered", 0);
+        this("No text entered", null);
     }
 }

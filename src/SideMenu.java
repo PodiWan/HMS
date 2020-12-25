@@ -16,7 +16,7 @@ public class SideMenu extends VBox {
 
     public SideMenu() {
 
-        this.setStyle("-fx-background-color: #5BD7C0");
+        this.setStyle("-fx-background-color: #637AA6");
         this.setAlignment(Pos.TOP_LEFT);
 
         bookingItemList = new ArrayList<BookingItem>();

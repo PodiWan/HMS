@@ -9,4 +9,7 @@ public class MainController {
     ArrayList<Receptionist> receptionistArrayList = new ArrayList<>();
     ArrayList<Booking> bookingArrayList = new ArrayList<>();
     SideMenu sideMenu = new SideMenu();
+
+    int numberOfFloors = 4;
+    int minFloor = 0;
 }
