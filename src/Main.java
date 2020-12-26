@@ -8,6 +8,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage){
         mainController = new MainController();
+
         mainController.personArrayList.add(new Person("Manuel"));
         mainController.personArrayList.add(new Person("Gabriel"));
         mainController.personArrayList.add(new Person("Calin"));
@@ -28,9 +29,6 @@ public class Main extends Application {
         mainController.receptionistArrayList.add(new Receptionist(true, "Podi"));
         mainController.receptionistArrayList.add(new Receptionist(false, "Victor"));
 
-        mainController.bookingArrayList.add(new Booking(1, 1, 1));
-        mainController.bookingArrayList.add(new Booking(1, 1, 1));
-        mainController.bookingArrayList.add(new Booking(1, 1, 1));
         mainController.bookingArrayList.add(new Booking(1, 1, 1));
         mainController.bookingArrayList.add(new Booking(1, 1, 1));
 

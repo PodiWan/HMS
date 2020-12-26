@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 public class BookingController extends HBox {
 
@@ -12,46 +13,33 @@ public class BookingController extends HBox {
         btnAddBooking.setText("\u2795");
         btnAddBooking.setTooltip(new Tooltip("Add a new booking"));
 
-        Button btnAddReceptionist = new Button();
-        btnAddReceptionist.setText("\uD83D\uDC64");
-        btnAddReceptionist.setTooltip(new Tooltip("Add a new receptionist"));
-
-        Button btnAddRoom = new Button();
-        btnAddRoom.setText("\uD83D\uDEAA");
-        btnAddRoom.setTooltip(new Tooltip("Add a new room"));
-
         Button btnAddPerson = new Button();
         btnAddPerson.setText("\uD83D\uDEC5");
-        btnAddPerson.setTooltip(new Tooltip("Add a new person"));
+        btnAddPerson.setTooltip(new Tooltip("Add a new customer"));
         btnAddPerson.setId("booking-controller-last-button");
 
         btnAddBooking.setOnAction(e -> {
             BookingMenu bm = new BookingMenu();
-            try {
-                if(bm.start(parent.bookingItemList))
-                    parent.getChildren().add(parent.bookingItemList.get(parent.bookingItemList.size() - 1));
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
+            Stage dialogStage = new Stage();
+            bm.start(parent.bookingItemList, dialogStage);
         });
 
-        btnAddRoom.setOnAction(e -> {
-            RoomMenu rm = new RoomMenu();
-            rm.start();
+        btnAddPerson.setOnAction(e -> {
+            CustomerMenu cm = new CustomerMenu();
+            Stage dialogStage = new Stage();
+            cm.start(dialogStage);
         });
 
         this.prefWidthProperty().bind(parent.widthProperty());
 
         this.getChildren().add(btnAddBooking);
-        this.getChildren().add(btnAddReceptionist);
-        this.getChildren().add(btnAddRoom);
         this.getChildren().add(btnAddPerson);
 
         DoubleProperty fontSize = new SimpleDoubleProperty(10);
         for (var node : this.getChildren()) {
             if(node instanceof Button){
                 ((Button) node).setPrefHeight(40);
-                ((Button) node).prefWidthProperty().bind(this.widthProperty().multiply(0.25));
+                ((Button) node).prefWidthProperty().bind(this.widthProperty().divide(2));
                 fontSize.bind(this.widthProperty().add(this.heightProperty()).divide(20));
                 node.styleProperty().bind(Bindings.concat("-fx-font-size: ", fontSize.asString(), ";"));
             }

@@ -14,7 +14,7 @@ public class Booking {
         this.id = id;
         this.bookedRoom = Main.mainController.roomArrayList.get(room - 1);
         this.bookingReceptionist = new Receptionist();
-        this.bookingPerson = Main.mainController.personArrayList.get(person);
+        this.bookingPerson = Main.mainController.personArrayList.get(person - 1);
         this.bookingStart = bookingStart;
         this.bookingEnd = bookingEnd;
     }
@@ -28,6 +28,6 @@ public class Booking {
     }
 
     public Booking(){
-        this(0, 1, 0, 0, null, null);
+        this(++overallId, 1, 0, 1, null, null);
     }
 }

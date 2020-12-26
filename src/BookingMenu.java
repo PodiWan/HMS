@@ -1,18 +1,26 @@
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 public class BookingMenu {
 
-    ComboBox<String> room = new ComboBox<>();
-    ComboBox<String> receptionist = new ComboBox<>();
-    ComboBox<String> person = new ComboBox<>();
+    ComboBox<String> roomComboBox = new ComboBox<>();
+    ComboBox<String> receptionistComboBox = new ComboBox<>();
+    ComboBox<String> personComboBox = new ComboBox<>();
+
+    Booking newBooking;
 
     BookingMenu(){
         //fill the combobox options with the rooms
@@ -25,48 +33,102 @@ public class BookingMenu {
                 }
             }
             if(!booked)
-                room.getItems().add(iterator.id + ". " + iterator.floor + "-" +iterator.number);
+                roomComboBox.getItems().add(iterator.id + ". " + iterator.floor + "-" +iterator.number);
         }
 
         //fill the combobox options with the receptionists
         for (var iterator : Main.mainController.receptionistArrayList) {
-            receptionist.getItems().add(iterator.id + ". " + iterator.name);
+            receptionistComboBox.getItems().add(iterator.id + ". " + iterator.name);
         }
 
         //fill the combobox options with the people staying at the hotel
         for (var iterator : Main.mainController.personArrayList) {
-            person.getItems().add(iterator.id + ". " + iterator.name);
+            personComboBox.getItems().add(iterator.id + ". " + iterator.name);
         }
     }
 
-    public boolean start(ArrayList<BookingItem> bookingItems){
-        Dialog<Booking> dialog = new Dialog<>();
-        dialog.setTitle("Add booking");
-        dialog.setHeaderText("Insert data regarding booking number: #" + Main.mainController.bookingArrayList.size() + 1);
+    public void start(ArrayList<BookingItem> bookingItems, Stage dialogStage){
+        newBooking = new Booking();
 
-        GridPane grid = new GridPane();
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.setPadding(new Insets(20, 40, 10, 10));
-        grid.getStylesheets().add("css/main.css");
+        GridPane root = new GridPane();
+        ColumnConstraints leftColumn = new ColumnConstraints();
+        leftColumn.setPercentWidth(40);
+        ColumnConstraints rightColumn = new ColumnConstraints();
+        rightColumn.setPercentWidth(60);
+        root.getColumnConstraints().addAll(leftColumn, rightColumn);
+        root.getStylesheets().add("css/dialog.css");
+        //left element
+        BorderPane leftPane = new BorderPane();
+        leftPane.setId("left-column");
+        leftPane.prefWidthProperty().bind(root.widthProperty().multiply(0.40));
+        leftPane.prefHeightProperty().bind(root.heightProperty());
 
-        room.setPromptText("Available room");
-        receptionist.setPromptText("Receptionist");
-        person.setPromptText("Person");
+        //text in middle of element which displays the new customer id
+        Label bookingIdLabel = new Label("Insert booking:\n#" + Integer.toString(newBooking.id));
+        leftPane.setCenter(bookingIdLabel);
 
+        //wrapper pane for better display
+        BorderPane wrapperPane = new BorderPane();
+        wrapperPane.getStyleClass().add("details-column");
+        //header
+        Label headerLabel = new Label("Booking details");
+        headerLabel.setId("details-header");
+        wrapperPane.setTop(headerLabel);
+
+        //details pane is on the right, contains input fields
+        GridPane detailsPane = new GridPane();
+        detailsPane.getStyleClass().add("details-column");
+        detailsPane.prefWidthProperty().bind(root.widthProperty().multiply(0.60));
+        detailsPane.prefHeightProperty().bind(root.heightProperty());
+        detailsPane.setVgap(20);
+        detailsPane.setPadding(new Insets(50, 0, 0, 10));
+
+        wrapperPane.setCenter(detailsPane);
+
+        //inputs
+        Label roomLabel = new Label("Room");
+        roomComboBox.setPromptText("Available room");
+        roomComboBox.prefWidthProperty().bind(detailsPane.widthProperty().multiply(0.95));
+
+        HolderPane roomHolderPane = new HolderPane(roomLabel, roomComboBox, false);
+
+        Label receptionistLabel = new Label("Receptionist");
+        receptionistComboBox.setPromptText("Receptionist");
+        receptionistComboBox.prefWidthProperty().bind(detailsPane.widthProperty().multiply(0.95));
+
+        HolderPane receptionistHolderPane = new HolderPane(receptionistLabel, receptionistComboBox, false);
+
+        Label personLabel = new Label("Person");
+        personComboBox.setPromptText("Person");
+        personComboBox.prefWidthProperty().bind(detailsPane.widthProperty().multiply(0.95));
+
+        HolderPane personHolderPane = new HolderPane(personLabel, personComboBox, false);
+
+        Label startDateLabel = new Label("Start date");
         DatePicker startDate = new DatePicker();
-        DatePicker endDate = new DatePicker();
+        startDate.prefWidthProperty().bind(detailsPane.widthProperty().multiply(0.95));
 
-        grid.add(new Label("Room:"), 0, 0);
-        grid.add(room, 1, 0);
-        grid.add(new Label("Receptionist:"), 0, 1);
-        grid.add(receptionist, 1, 1);
-        grid.add(new Label("Person:"), 0, 2);
-        grid.add(person, 1, 2);
-        grid.add(new Label("Start date:"), 0, 3);
-        grid.add(startDate, 1, 3);
-        grid.add(new Label("End date:"), 0, 4);
-        grid.add(endDate, 1, 4);
+        HolderPane startDateHolderPane = new HolderPane(startDateLabel, startDate, false);
+
+        Label endDateLabel = new Label("Start date");
+        DatePicker endDate = new DatePicker();
+        endDate.prefWidthProperty().bind(detailsPane.widthProperty().multiply(0.95));
+
+        HolderPane endDateHolderPane = new HolderPane(endDateLabel, endDate, false);
+
+        Label errorHeader = new Label("Error!");
+        errorHeader.getStyleClass().add("error-label");
+        Label errorContent = new Label();
+        errorContent.getStyleClass().add("error-label");
+        HolderPane errorHolderPane = new HolderPane(errorHeader, errorContent, false);
+        errorHolderPane.setVisible(false);
+
+        detailsPane.add(roomHolderPane, 0, 0);
+        detailsPane.add(receptionistHolderPane, 0, 1);
+        detailsPane.add(personHolderPane, 0, 2);
+        detailsPane.add(startDateHolderPane, 0, 3);
+        detailsPane.add(endDateHolderPane, 0, 4);
+        detailsPane.add(errorHolderPane, 0, 5);
 
         //disable past dates for the start date picker
         startDate.setDayCellFactory(datePicker -> new DateCell(){
@@ -87,38 +149,77 @@ public class BookingMenu {
                 setDisable(empty || date.compareTo(firstDate) < 0);
             }
         });
-        ButtonType submitButtonType = new ButtonType("Submit", ButtonBar.ButtonData.OK_DONE);
-        dialog.getDialogPane().getButtonTypes().addAll(submitButtonType, ButtonType.CANCEL);
 
-        dialog.getDialogPane().setContent(grid);
-
-        //executes on dialog closure, creates a new booking corresponding to a room, receptionist and person
-        dialog.setResultConverter(dialogButton -> {
-            if (dialogButton == submitButtonType) {
-                //try-catch block to ensure the correctness of the data and to notify the user if something went wrong
-                try {
-                    //get the id from the comboboxes, it is differentiated from the rest by a ".", i.e.: id. other info
-                    Booking newBooking = new Booking(Integer.parseInt(room.getValue().split(Pattern.quote("."))[0]),
-                            Integer.parseInt(receptionist.getValue().split(Pattern.quote("."))[0]),
-                            Integer.parseInt(person.getValue().split(Pattern.quote("."))[0]),
-                            //fucking mambo jambo
-                            Date.from(startDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
-                            Date.from(endDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-
-                    //add the new booking to the list of bookings
-                    Main.mainController.bookingArrayList.add(newBooking);
-                    //add the new booking to the side menu
-                    bookingItems.add(new BookingItem(newBooking));
-                    return newBooking;
-                }
-                catch (Exception ex){
-                    Alert errorDialog = new Alert(Alert.AlertType.ERROR);
-                    errorDialog.setHeaderText("Make sure to complete the fields with correct data!");
-                    errorDialog.show();
-                }
-            }
-            return null;
+        Button btnClose = new Button("Cancel");
+        btnClose.setOnAction(e -> {
+            dialogStage.close();
         });
-        return dialog.showAndWait().isPresent();
+
+        Button btnSubmit = new Button("Submit");
+
+        HolderPane buttonHolderPane = new HolderPane(btnClose, btnSubmit, true);
+
+        Scene s = new Scene(root, 650, 670);
+
+        btnSubmit.setOnAction(e -> {
+            String missingData = "";
+            if(roomComboBox.getValue() == null)
+                missingData += "room";
+            if(receptionistComboBox.getValue() == null) {
+                if (!missingData.equals(""))
+                    missingData += ", ";
+                missingData += "receptionist";
+            }
+            if(personComboBox.getValue() == null){
+                if (!missingData.equals(""))
+                    missingData += ", ";
+                missingData += "person";
+            }
+            if(startDate.getValue() == null){
+                if (!missingData.equals(""))
+                    missingData += ", ";
+                missingData += "start date";
+            }
+            if(endDate.getValue() == null){
+                if (!missingData.equals(""))
+                    missingData += ", ";
+                missingData += "end date";
+            }
+            if(!missingData.equals("")) {
+                missingData = "Please provide information regarding:" + missingData;
+                errorContent.setText(missingData);
+                errorContent.setWrapText(true);
+                errorHeader.setTooltip(new Tooltip(missingData));
+                errorContent.setTooltip(new Tooltip(missingData));
+                errorHolderPane.setVisible(true);
+                dialogStage.setHeight(s.getHeight() + errorHolderPane.getHeight());
+            }
+            else{
+                Booking newBooking = new Booking(Integer.parseInt(roomComboBox.getValue().split(Pattern.quote("."))[0]),
+                        Integer.parseInt(receptionistComboBox.getValue().split(Pattern.quote("."))[0]),
+                        Integer.parseInt(personComboBox.getValue().split(Pattern.quote("."))[0]),
+                        //fucking mambo jambo
+                        Date.from(startDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
+                        Date.from(endDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+
+                //add the new booking to the list of bookings
+                Main.mainController.bookingArrayList.add(newBooking);
+                //add the new booking to the side menu
+                bookingItems.add(new BookingItem(newBooking));
+                Main.mainController.sideMenu.content.getChildren()
+                        .add(Main.mainController.sideMenu.bookingItemList
+                                .get(Main.mainController.sideMenu.bookingItemList.size() - 1));
+                dialogStage.close();
+            }
+        });
+
+        detailsPane.add(buttonHolderPane, 0, 7);
+
+        root.add(leftPane, 0, 0);
+        root.add(wrapperPane, 1, 0);
+
+        dialogStage.initStyle(StageStyle.TRANSPARENT);
+        dialogStage.setScene(s);
+        dialogStage.showAndWait();
     }
 }

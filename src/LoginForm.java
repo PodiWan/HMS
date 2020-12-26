@@ -56,7 +56,7 @@ public class LoginForm {
                         else this.stop();
                     }
                 };
-        timer.start();
+//        timer.start();
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);

@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+.root{
+    -fx-border-color: #637AA6;
+}
+
+.root *{
+    -fx-font-family: Montserrat;
+    -fx-border-radius: 0;
+}
+
+.button{
+    -fx-border-width: 0;
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
+    -fx-focus-color: none;
+    -fx-faint-focus-color: transparent;
+    -fx-background-color: #349AF7;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-style: none;
+}
+
+.button:hover{
+    -fx-background-color: #0869C4;
+}
+
+#left-column{
+    -fx-background-color: #F3F2F3
+}
+
+#left-column .label{
+    -fx-font-size: 2em;
+    -fx-text-alignment: center;
+}
+
+.details-column{
+    -fx-background-color: #F3ECE2;
+    -fx-font-size: 1.5em;
+}
+
+#details-header{
+    -fx-font-size: 2em;
+    -fx-padding: 30 0 0 10;
+}
+
+.error-label{
+    -fx-text-fill: #E3170A;
+}
