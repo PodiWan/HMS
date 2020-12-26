@@ -25,6 +25,7 @@ public class BookingController extends HBox {
         Button btnAddPerson = new Button();
         btnAddPerson.setText("\uD83D\uDEC5");
         btnAddPerson.setTooltip(new Tooltip("Add a new person"));
+        btnAddPerson.setId("booking-controller-last-button");
 
         btnAddBooking.setOnAction(e -> {
             BookingMenu bm = new BookingMenu();

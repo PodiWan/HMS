@@ -18,18 +18,16 @@ public class BookingItem extends Pane {
         this.strBookingInfo = strBookingInfo;
     }
 
-    public BookingItem(String strBookingInfo, Booking booking) {
-        this.strBookingInfo = strBookingInfo;
+    public BookingItem(Booking booking) {
         this.heldBooking = booking;
 
+        this.setId("booking-item");
+
         Label lBookingInfo = new Label();
-        lBookingInfo.setText(this.strBookingInfo);
-        lBookingInfo.setFont(new Font("Calibri", 0));
-        lBookingInfo.setStyle("-fx-font-size: 1.5em");
+        lBookingInfo.setText(this.heldBooking.bookingPerson.name);
         lBookingInfo.prefWidthProperty().bind(this.widthProperty());
 
         this.setPrefHeight(50);
-        this.setStyle("-fx-background-color: #ddd4dd");
 
         this.getChildren().add(lBookingInfo);
 
@@ -60,6 +58,6 @@ public class BookingItem extends Pane {
     }
 
     public BookingItem() {
-        this("No text entered", null);
+        this(null);
     }
 }

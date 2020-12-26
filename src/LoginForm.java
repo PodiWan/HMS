@@ -3,6 +3,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -21,7 +22,7 @@ import javafx.stage.StageStyle;
 public class LoginForm {
 
     //TODO write credentials to file AND read them when logging in
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage){
         int formWidth = 400;
         int formHeight = 275;
 
@@ -33,7 +34,8 @@ public class LoginForm {
         root.setHgap(10);
         root.setVgap(10);
 
-        Scene s = new Scene(root, 400, 275, Color.web("#DDDDDD"));
+        Scene s = new Scene(root, 500, 300);
+        s.getStylesheets().add("css/main.css");
         primaryStage.setScene(s);
 
         double rectWidth = s.getWidth() / 4;
@@ -44,7 +46,7 @@ public class LoginForm {
         rect.setY(0);
         rect.setWidth(0);
         rect.setHeight(rectHeight);
-        rect.setFill(Color.web("#7D5BA6"));
+        rect.setFill(Color.web("#F1C95F"));
         root.getChildren().add(rect);
 
         AnimationTimer timer =
@@ -66,24 +68,21 @@ public class LoginForm {
         grid.setPadding(new Insets(25, 25, 25, 25));
 
         Text loginText = new Text("Welcome to HMS");
-        loginText.setFont(Font.font("Calibri", FontWeight.NORMAL, 30));
+        loginText.setId("login-title");
         grid.add(loginText, 0, 0, 2, 1);
 
         Text userText = new Text("Username: ");
-        userText.setFont(Font.font("Calibri", FontWeight.NORMAL, 15));
         grid.add(userText, 0, 1);
         TextField userField = new TextField();
         grid.add(userField, 1, 1);
 
         Text passwordText = new Text("Password: ");
-        passwordText.setFont(Font.font("Calibri", FontWeight.NORMAL, 15));
         grid.add(passwordText, 0, 2);
         PasswordField passwordField = new PasswordField();
         grid.add(passwordField, 1, 2);
 
         Button button = new Button("Login");
         button.setLayoutX(primaryStage.getMaxWidth() - 20);
-        button.getStylesheets().add("button.css");
         EventHandler<ActionEvent> buttonClick = e -> {
             primaryStage.close();
             MainForm mainForm = new MainForm();

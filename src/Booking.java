@@ -28,6 +28,6 @@ public class Booking {
     }
 
     public Booking(){
-        this(0, 0, 0, 0, null, null);
+        this(0, 1, 0, 0, null, null);
     }
 }

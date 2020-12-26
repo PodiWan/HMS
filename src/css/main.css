@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+.root *{
+    -fx-font-family: Montserrat;
+    -fx-border-radius: 0;
+}
+
+.button{
+    -fx-border-width: 0;
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
+    -fx-focus-color: none;
+    -fx-faint-focus-color: transparent;
+    -fx-background-color: #f2eadf;
+    -fx-border-style: none;
+    -fx-font-size: 1.25em;
+    -fx-padding: 0.5em 1em;
+}
+
+#side-menu{
+    -fx-background-color: #637AA6;
+    -fx-border-color: #637AA6;
+    -fx-border-radius: 0 10 0 0;
+    -fx-background-radius: 0 10 0 0;
+}
+
+#booking-controller{
+    -fx-border-radius: 0 10 0 0;
+    -fx-background-radius: 0 10 0 0;
+}
+
+#booking-controller-last-button{
+    -fx-border-radius: 0 10 0 0;
+    -fx-background-radius: 0 10 0 0;
+}
+
+.button:hover{
+    -fx-background-color: #EDE3D4;
+}
+
+#btn-close:hover{
+    -fx-background-color: #E3170A;
+    -fx-text-fill: #f2eadf;
+}
+
+#login-title{
+    -fx-font-size: 3em;
+}
+
+#login-label{
+    -fx-font-size: 1.2em;
+}
+
+#hotel-map{
+    -fx-font-size: 1.5em;
+    -fx-background-color: #F3ECE2;
+}
+
+#floor-counter{
+    -fx-font-size: 2em;
+}
+
+#header-title{
+    -fx-font-size: 2em;
+}
+
+#room-tile{
+    -fx-background-color: #F3F2F3;
+    -fx-border-color: #000000;
+}
+
+#room-tile:hover{
+    -fx-background-color: #e2dfe2;
+}
+
+#room-tile:focused{
+    -fx-background-color: #F1C95F;
+}
+
+#room-tile:selected{
+    -fx-background-color: #F1C95F;
+}
+
+#booking-item{
+    -fx-font-size: 2em;
+    -fx-background-color: #F3F2F3;
+}
+
+#booking-item:hover{
+    -fx-background-color: #e2dfe2;
+}
+
+#booking-item:focused{
+    -fx-background-color: #F1C95F;
+}
+
+#booking-item:selected{
+    -fx-background-color: #F1C95F;
+}

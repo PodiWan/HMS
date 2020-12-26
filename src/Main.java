@@ -30,7 +30,14 @@ public class Main extends Application {
         mainController.receptionistArrayList.add(new Receptionist(true, "Podi"));
         mainController.receptionistArrayList.add(new Receptionist(false, "Victor"));
 
-//        bookingArrayList.add(new Booking());
+        mainController.bookingArrayList.add(new Booking(1, 1, 1));
+        mainController.bookingArrayList.add(new Booking(1, 1, 1));
+        mainController.bookingArrayList.add(new Booking(1, 1, 1));
+        mainController.bookingArrayList.add(new Booking(1, 1, 1));
+        mainController.bookingArrayList.add(new Booking(1, 1, 1));
+
+        for(var booking : mainController.bookingArrayList)
+            mainController.sideMenu.bookingItemList.add(new BookingItem(booking));
 
         MainForm mainForm = new MainForm();
         LoginForm loginForm = new LoginForm();

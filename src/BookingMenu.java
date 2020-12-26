@@ -48,6 +48,7 @@ public class BookingMenu {
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(20, 40, 10, 10));
+        grid.getStylesheets().add("css/main.css");
 
         room.setPromptText("Available room");
         receptionist.setPromptText("Receptionist");
@@ -107,9 +108,7 @@ public class BookingMenu {
                     //add the new booking to the list of bookings
                     Main.mainController.bookingArrayList.add(newBooking);
                     //add the new booking to the side menu
-                    bookingItems.add(new BookingItem(
-                            Main.mainController.personArrayList.get(newBooking.bookingPerson.id - 1).name
-                            .concat(" " + newBooking.bookingStart.toString()), newBooking));
+                    bookingItems.add(new BookingItem(newBooking));
                     return newBooking;
                 }
                 catch (Exception ex){
