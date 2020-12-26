@@ -4,12 +4,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.awt.*;
-import java.net.URL;
 import java.util.Collections;
 
 public class MainForm {
@@ -43,7 +41,7 @@ public class MainForm {
         }
     }
 
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage){
         formFullWidth = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().width;
         formFullHeight = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height;
 
@@ -91,22 +89,16 @@ public class MainForm {
 
         Button btnClose = new Button();
         btnClose.setText("\u2613");
-        btnClose.setOnAction(e -> {
-            primaryStage.close();
-        });
+        btnClose.setOnAction(e -> primaryStage.close());
         btnClose.setId("btn-close");
 
         Button btnState = new Button();
         btnState.setText("\u2752");
-        btnState.setOnAction(e -> {
-            resize(primaryStage);
-        });
+        btnState.setOnAction(e -> resize(primaryStage));
 
         Button btnMin = new Button();
         btnMin.setText("\u2500");
-        btnMin.setOnAction(e -> {
-            primaryStage.setIconified(true);
-        });
+        btnMin.setOnAction(e -> primaryStage.setIconified(true));
 
         Text headerTitle = new Text("HMS");
         headerTitle.setId("header-title");

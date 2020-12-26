@@ -1,4 +1,3 @@
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Insets;
@@ -9,11 +8,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Label;
 
-import java.net.URL;
-
 public class HotelMap extends GridPane {
 
-    class RoomTile extends BorderPane {
+    static class RoomTile extends BorderPane {
 
         private int roomId;
         private final Label roomNumberLabel;
@@ -76,7 +73,7 @@ public class HotelMap extends GridPane {
         }
     }
 
-    void higlightRoom(Room selectedRoom){
+    void highlightRoom(Room selectedRoom){
         RoomTile highlightRoom = null;
 
         for(var node : this.getChildren())

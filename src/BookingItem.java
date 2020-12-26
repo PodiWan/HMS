@@ -1,22 +1,12 @@
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Label;
-import javafx.scene.text.Font;
-
-import java.util.ArrayList;
 
 public class BookingItem extends Pane {
 
     Booking heldBooking;
-    private String strBookingInfo;
-
-    public void setBookingInfo(String strBookingInfo) {
-        this.strBookingInfo = strBookingInfo;
-    }
 
     public BookingItem(Booking booking) {
         this.heldBooking = booking;
@@ -50,7 +40,7 @@ public class BookingItem extends Pane {
                     MainForm.hm.activeFloor = this.heldBooking.bookedRoom.floor;
                     MainForm.hm.updateMap();
                 }
-                MainForm.hm.higlightRoom(this.heldBooking.bookedRoom);
+                MainForm.hm.highlightRoom(this.heldBooking.bookedRoom);
             }
             if(mouseEvent.getButton() == MouseButton.SECONDARY)
                 contextMenu.show(this, mouseEvent.getScreenX(), mouseEvent.getScreenY());

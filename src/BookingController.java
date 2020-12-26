@@ -4,8 +4,6 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
-//import javax.script.Bindings;
 
 public class BookingController extends HBox {
 

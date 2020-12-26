@@ -10,12 +10,12 @@ public class RoomMenu {
 
     String prettyPrintFloor(int floorNumber){
         int lastDigit = floorNumber % 10;
-        switch (lastDigit){
-            case 1:  return "st";
-            case 2:  return "nd";
-            case 3:  return "rd";
-            default: return "th";
-        }
+        return switch (lastDigit) {
+            case 1 -> "st";
+            case 2 -> "nd";
+            case 3 -> "rd";
+            default -> "th";
+        };
     }
 
     RoomMenu(){

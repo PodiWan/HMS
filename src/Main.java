@@ -1,14 +1,12 @@
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-
 public class Main extends Application {
 
     public static MainController mainController;
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage){
         mainController = new MainController();
         mainController.personArrayList.add(new Person("Manuel"));
         mainController.personArrayList.add(new Person("Gabriel"));
@@ -39,7 +37,6 @@ public class Main extends Application {
         for(var booking : mainController.bookingArrayList)
             mainController.sideMenu.bookingItemList.add(new BookingItem(booking));
 
-        MainForm mainForm = new MainForm();
         LoginForm loginForm = new LoginForm();
         loginForm.start(primaryStage);
     }
