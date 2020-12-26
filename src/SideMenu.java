@@ -1,10 +1,6 @@
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Tooltip;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
@@ -24,7 +20,7 @@ public class SideMenu extends VBox {
         sp.setFitToWidth(true);
 
         this.setAlignment(Pos.BASELINE_LEFT);
-        bookingItemList = new ArrayList<BookingItem>();
+        bookingItemList = new ArrayList<>();
 
         this.getChildren().add(sp);
     }
