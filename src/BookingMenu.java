@@ -47,6 +47,8 @@ public class BookingMenu {
         }
     }
 
+    private double initHeight = 670.0;
+
     public void start(ArrayList<BookingItem> bookingItems, Stage dialogStage){
         newBooking = new Booking();
 
@@ -140,6 +142,7 @@ public class BookingMenu {
             }
         });
 
+        //TODO: FIX
         //disable dates prior to the startDate for end date picker
         endDate.setDayCellFactory(datePicker -> new DateCell(){
             public void updateItem(LocalDate date, boolean empty){
@@ -159,7 +162,7 @@ public class BookingMenu {
 
         HolderPane buttonHolderPane = new HolderPane(btnClose, btnSubmit, true);
 
-        Scene s = new Scene(root, 650, 670);
+        Scene s = new Scene(root, 650, initHeight);
 
         btnSubmit.setOnAction(e -> {
             String missingData = "";
@@ -186,21 +189,22 @@ public class BookingMenu {
                 missingData += "end date";
             }
             if(!missingData.equals("")) {
-                missingData = "Please provide information regarding:" + missingData;
+                String str = "Please provide information regarding:";
+                if(!errorContent.getText().contains(str)) {
+                    dialogStage.setHeight(initHeight + errorHolderPane.getHeight());
+                }
+                missingData = str + missingData;
                 errorContent.setText(missingData);
                 errorContent.setWrapText(true);
                 errorHeader.setTooltip(new Tooltip(missingData));
                 errorContent.setTooltip(new Tooltip(missingData));
                 errorHolderPane.setVisible(true);
-                dialogStage.setHeight(s.getHeight() + errorHolderPane.getHeight());
             }
             else{
                 Booking newBooking = new Booking(Integer.parseInt(roomComboBox.getValue().split(Pattern.quote("."))[0]),
                         Integer.parseInt(receptionistComboBox.getValue().split(Pattern.quote("."))[0]),
                         Integer.parseInt(personComboBox.getValue().split(Pattern.quote("."))[0]),
-                        //fucking mambo jambo
-                        Date.from(startDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
-                        Date.from(endDate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+                        startDate.getValue(), endDate.getValue());
 
                 //add the new booking to the list of bookings
                 Main.mainController.bookingArrayList.add(newBooking);
@@ -209,6 +213,10 @@ public class BookingMenu {
                 Main.mainController.sideMenu.content.getChildren()
                         .add(Main.mainController.sideMenu.bookingItemList
                                 .get(Main.mainController.sideMenu.bookingItemList.size() - 1));
+                Label informationLabel = new Label(LocalDate.now().toString() +
+                        ": registered booking #" + newBooking.id);
+                informationLabel.setId("activity-log-content");
+                Main.mainController.activityMenu.content.getChildren().add(informationLabel);
                 dialogStage.close();
             }
         });

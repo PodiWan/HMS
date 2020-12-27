@@ -57,8 +57,8 @@ public class MainForm {
         xFormPosition = 0;
         yFormPosition = 0;
 
-        formMinWidth = 800;
-        formMinHeight = 600;
+        formMinWidth = 1000;
+        formMinHeight = 800;
 
         primaryStage.setX(0);
         primaryStage.setY(0);
@@ -130,13 +130,13 @@ public class MainForm {
 
         BorderPane.setMargin(Main.mainController.sideMenu, mainViewInsets);
 
-        ActivitiesController activitiesController = new ActivitiesController();
+        ActivitiesController activitiesController = new ActivitiesController(primaryStage);
         activitiesController.setPrefWidth(75);
         activitiesController.prefHeightProperty().bind(primaryStage.heightProperty());
 
         borderPane.setLeft(activitiesController);
 
-        Main.mainController.sideMenu.setId("side-menu");
+        Main.mainController.sideMenu.getStyleClass().add("side-menu");
 
         Button btnAddBooking = new Button();
         btnAddBooking.setText("\u2795");
@@ -147,6 +147,7 @@ public class MainForm {
             BookingMenu bm = new BookingMenu();
             Stage dialogStage = new Stage();
             bm.start(Main.mainController.sideMenu.bookingItemList, dialogStage);
+            hm.updateMap();
         });
 
         Label bookingsHeader = new Label("Active bookings");
@@ -173,31 +174,59 @@ public class MainForm {
         GridPane bottomView = new GridPane();
         bottomView.prefHeightProperty().bind(primaryStage.heightProperty().multiply(0.30));
         BorderPane.setMargin(bottomView, mainViewInsets);
+        bottomView.setHgap(10);
 
-        VBox left = new VBox();
-        left.setStyle("-fx-background-color: red");
-        left.prefWidthProperty().bind(bottomView.widthProperty());
-        left.prefHeightProperty().bind(bottomView.heightProperty());
+        BorderPane tasksPane = new BorderPane();
+        tasksPane.getStyleClass().add("side-menu");
+        Label tasksTitle = new Label("Tasks");
+        tasksTitle.getStyleClass().add("header");
+        tasksPane.setTop(tasksTitle);
+        tasksPane.prefWidthProperty().bind(bottomView.widthProperty());
+        tasksPane.prefHeightProperty().bind(bottomView.heightProperty());
+        tasksPane.setCenter(Main.mainController.taskMenu);
+        Main.mainController.taskMenu.setStyle("-fx-background: #FCFCFC");
 
-        VBox right = new VBox();
-        right.setStyle("-fx-background-color: blue");
-        right.prefWidthProperty().bind(bottomView.widthProperty());
-        right.prefHeightProperty().bind(bottomView.heightProperty());
+        BorderPane activityLogPane = new BorderPane();
+        activityLogPane.getStyleClass().add("side-menu");
+        Label activityLogTitle = new Label("Activity log");
+        activityLogTitle.getStyleClass().add("header");
+        activityLogPane.setTop(activityLogTitle);
+        activityLogPane.setCenter(Main.mainController.activityMenu);
+        Main.mainController.activityMenu.setStyle("-fx-background: #FCFCFC");
+
+        BorderPane receptionistPane = new BorderPane();
+        receptionistPane.getStyleClass().add("side-menu");
+        Label receptionistPaneTitle = new Label("Receptionist");
+        receptionistPaneTitle.getStyleClass().add("header");
+        receptionistPane.setTop(receptionistPaneTitle);
+        receptionistPane.prefWidthProperty().bind(bottomView.widthProperty());
+        receptionistPane.prefHeightProperty().bind(bottomView.heightProperty());
+
+        String isAdmin = Main.mainController.activeReceptionist.isAdmin ? " " : " not ";
+        Label receptionistPaneCenter = new Label("Hello, " + Main.mainController.activeReceptionist.name +
+                ", you are" + isAdmin + "an admin. Good luck on your shift and stay positive!");
+        receptionistPaneCenter.setWrapText(true);
+        receptionistPaneCenter.setStyle("-fx-font-size: 2.5em; -fx-padding: 0 1.5em;");
+        receptionistPane.setCenter(receptionistPaneCenter);
+
+        ColumnConstraints activityPaneConstraint = new ColumnConstraints();
+        activityPaneConstraint.setPercentWidth(50);
 
         ColumnConstraints c1 = new ColumnConstraints();
-        c1.setPercentWidth(75);
+        c1.setPercentWidth(50);
         ColumnConstraints c2 = new ColumnConstraints();
         c2.setPercentWidth(25);
+        ColumnConstraints c3 = new ColumnConstraints();
+        c3.setPercentWidth(25);
 
-        bottomView.getColumnConstraints().addAll(c1, c2);
+        bottomView.getColumnConstraints().addAll(c1, c2, c3);
 
-        bottomView.add(left, 0, 0);
-        bottomView.add(right, 1, 0);
-
+        bottomView.add(tasksPane, 0, 0);
+        bottomView.add(activityLogPane, 1, 0);
+        bottomView.add(receptionistPane, 2, 0);
 
         mainView.setCenter(hm);
         mainView.setBottom(bottomView);
-
         borderPane.setCenter(mainView);
 
         primaryStage.setScene(s);

@@ -90,10 +90,18 @@ public class LoginForm {
             }
         };
         button.setOnAction(buttonClick);
-        HBox hboxButton = new HBox(10);
-        hboxButton.setAlignment(Pos.BOTTOM_RIGHT);
-        hboxButton.getChildren().add(button);
-        grid.add(hboxButton, 1, 3);
+
+        Button btnClose = new Button("Cancel");
+        btnClose.setOnAction(e -> {
+            primaryStage.close();
+        });
+
+        HolderPane buttonHolder = new HolderPane(btnClose, button, true);
+
+//        HBox hboxButton = new HBox(10);
+//        hboxButton.setAlignment(Pos.BOTTOM_RIGHT);
+//        hboxButton.getChildren().add(buttonHolder);
+        grid.add(buttonHolder, 1, 3);
 
         root.add(grid, 1, 0);
 

@@ -1,16 +1,13 @@
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.Tooltip;
-import javafx.scene.layout.HBox;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class ActivitiesController extends VBox {
 
-    public ActivitiesController() {
-
+    public ActivitiesController(Stage primaryStage) {
 
         Button btnAddPerson = new Button();
         btnAddPerson.setText("\uD83D\uDEC5");
@@ -18,11 +15,11 @@ public class ActivitiesController extends VBox {
 
         Button btnTasks = new Button();
         btnTasks.setText("\uD83D\uDCDD");
-        btnTasks.setTooltip(new Tooltip("Add a new booking"));
+        btnTasks.setTooltip(new Tooltip("Add a new task"));
 
-        Button btnCalendar = new Button();
-        btnCalendar.setText("\uD83D\uDCC5");
-        btnCalendar.setTooltip(new Tooltip("Add a new customer"));
+        Button btnExit = new Button();
+        btnExit.setText("\uD83D\uDEAA");
+        btnExit.setTooltip(new Tooltip("Exit"));
 
         btnAddPerson.setOnAction(e -> {
             CustomerMenu cm = new CustomerMenu();
@@ -30,10 +27,19 @@ public class ActivitiesController extends VBox {
             cm.start(dialogStage);
         });
 
-//        this.getChildren().add(btnAddBooking);
+        btnTasks.setOnAction(e -> {
+            TaskMenu tm = new TaskMenu();
+            Stage dialogStage = new Stage();
+            tm.start(dialogStage);
+        });
+
+        btnExit.setOnAction(e -> {
+            primaryStage.close();
+        });
+
         this.getChildren().add(btnAddPerson);
         this.getChildren().add(btnTasks);
-        this.getChildren().add(btnCalendar);
+        this.getChildren().add(btnExit);
 
         DoubleProperty fontSize = new SimpleDoubleProperty(10);
         for (var node : this.getChildren()) {

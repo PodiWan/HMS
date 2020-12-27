@@ -1,10 +1,12 @@
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.control.Label;
 
-public class BookingItem extends Pane {
+import java.time.LocalDate;
+
+public class BookingItem extends BorderPane {
 
     Booking heldBooking;
 
@@ -13,25 +15,45 @@ public class BookingItem extends Pane {
 
         this.setId("booking-item");
 
+        Label lBookingPerson = new Label();
+        lBookingPerson.setText(this.heldBooking.bookingPerson.name);
+        lBookingPerson.setId("booking-item-header");
+
         Label lBookingInfo = new Label();
-        lBookingInfo.setText(this.heldBooking.bookingPerson.name);
-        lBookingInfo.prefWidthProperty().bind(this.widthProperty());
+        lBookingInfo.setText("Booked room: " + this.heldBooking.bookedRoom.number);
+        lBookingInfo.setId("booking-item-content");
 
-        this.setPrefHeight(50);
-
-        this.getChildren().add(lBookingInfo);
+        this.setTop(lBookingPerson);
+        this.setLeft(lBookingInfo);
 
         ContextMenu contextMenu = new ContextMenu();
         MenuItem menuItemDelete = new MenuItem("Delete");
         menuItemDelete.setOnAction(actionEvent -> {
             for (int i = 0; i < Main.mainController.bookingArrayList.size(); ++i) {
                 if(Main.mainController.bookingArrayList.get(i).id == this.heldBooking.id) {
+                    Label informationLabel = new Label(LocalDate.now().toString() +
+                            ": deleted booking #" + Main.mainController.bookingArrayList.get(i).id);
+                    informationLabel.setId("activity-log-content");
+                    Main.mainController.activityMenu.content.getChildren().add(informationLabel);
                     Main.mainController.bookingArrayList.remove(i);
-                    Main.mainController.sideMenu.getChildren().remove(i + 1);
+                    Main.mainController.sideMenu.content.getChildren().remove(i);
                 }
             }
         });
-        contextMenu.getItems().addAll(menuItemDelete);
+        MenuItem menuItemCheckOut = new MenuItem("Check-out");
+        menuItemCheckOut.setOnAction(actionEvent -> {
+            for (int i = 0; i < Main.mainController.bookingArrayList.size(); ++i) {
+                if(Main.mainController.bookingArrayList.get(i).id == this.heldBooking.id) {
+                    Label informationLabel = new Label(LocalDate.now().toString() +
+                            ": checked-out booking #" + Main.mainController.bookingArrayList.get(i).id);
+                    informationLabel.setId("activity-log-content");
+                    Main.mainController.activityMenu.content.getChildren().add(informationLabel);
+                    Main.mainController.bookingArrayList.remove(i);
+                    Main.mainController.sideMenu.content.getChildren().remove(i);
+                }
+            }
+        });
+        contextMenu.getItems().addAll(menuItemDelete, menuItemCheckOut);
         this.setOnMouseClicked(mouseEvent -> {
             //when left-clicked
             if(mouseEvent.getButton() == MouseButton.PRIMARY) {

@@ -1,4 +1,4 @@
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Booking {
 
@@ -7,10 +7,10 @@ public class Booking {
     Room bookedRoom;
     Receptionist bookingReceptionist;
     Person bookingPerson;
-    Date bookingStart;
-    Date bookingEnd;
+    LocalDate bookingStart;
+    LocalDate bookingEnd;
 
-    public Booking(int id, int room, int receptionist, int person, Date bookingStart, Date bookingEnd){
+    public Booking(int id, int room, int receptionist, int person, LocalDate bookingStart, LocalDate bookingEnd){
         this.id = id;
         this.bookedRoom = Main.mainController.roomArrayList.get(room - 1);
         this.bookingReceptionist = new Receptionist();
@@ -19,7 +19,7 @@ public class Booking {
         this.bookingEnd = bookingEnd;
     }
 
-    public Booking(int room, int receptionist, int person, Date bookingStart, Date bookingEnd) {
+    public Booking(int room, int receptionist, int person, LocalDate bookingStart, LocalDate bookingEnd) {
         this(++overallId, room, receptionist, person, bookingStart, bookingEnd);
     }
 

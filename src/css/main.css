@@ -1,8 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,700;0,900;1,500&display=swap');
 
 *{
     -fx-white-mint: #F2F6FC;
     -fx-white: #FCFCFC;
+    -fx-blue: #349AF7;
+    -fx-blue-dark: #0869C4;
+    -fx-blue-light: #ADCDEB;
 }
 
 .root *{
@@ -16,7 +19,7 @@
     -fx-background-radius: 0px;
     -fx-focus-color: none;
     -fx-faint-focus-color: transparent;
-    -fx-background-color: #349AF7;
+    -fx-background-color: -fx-blue;
     -fx-border-style: none;
     -fx-font-size: 1.25em;
     -fx-padding: 0.5em 1em;
@@ -24,14 +27,46 @@
 }
 
 .button:hover{
-    -fx-background-color: #0869C4;
+    -fx-background-color: -fx-blue-dark;
 }
 
-#side-menu{
+.side-menu{
     -fx-background-color: -fx-white;
-    -fx-border-color: #349AF7;
+    -fx-border-color: -fx-blue;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
+}
+
+.side-menu .header{
+    -fx-font-size: 2.5em;
+    -fx-padding: 0.5em 1em;
+}
+
+#activity-log-content{
+    -fx-font-size: 2em;
+    -fx-font-weight: 700;
+    -fx-padding: 0em 1em;
+}
+
+#task-content{
+    -fx-font-size: 2em;
+    -fx-font-weight: 500;
+    -fx-padding: 0em 1em;
+}
+
+#task-content:hover{
+    -fx-background-color: -fx-white-mint;
+}
+
+#booking-item-header{
+    -fx-font-weight: 900;
+    -fx-padding: 0em 1em;
+}
+
+#booking-item-content{
+    -fx-font-size: 0.7em;
+    -fx-padding: 0.5em 0.75em;
+    -fx-font-weight: 500;
 }
 
 #booking-controller{
@@ -40,8 +75,8 @@
 }
 
 #booking-controller-last-button{
-    -fx-border-radius: 0 5 0 0;
-    -fx-background-radius: 0 5 0 0;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
     -fx-padding: 0.7em 1em;
 }
 
@@ -69,11 +104,12 @@
 
 #header-title{
     -fx-font-size: 2em;
+    -fx-font-weight: 900;
 }
 
 #room-tile{
     -fx-background-color: -fx-white;
-    -fx-border-color: #000000;
+    -fx-border-color: -fx-blue;
 }
 
 #room-tile:hover{
@@ -81,16 +117,19 @@
 }
 
 #room-tile:focused{
-    -fx-background-color: #F1C95F;
+    -fx-background-color: -fx-blue-light;
 }
 
 #room-tile:selected{
-    -fx-background-color: #F1C95F;
+    -fx-background-color: -fx-blue-light;
 }
 
 #booking-item{
-    -fx-font-size: 2em;
+    -fx-font-size: 1.75em;
     -fx-background-color: -fx-white;
+    -fx-border-style: hidden none solid none;
+    -fx-border-color: #E0E0E0;
+    -fx-border-insets: 0 10;
 }
 
 #booking-item:hover{
@@ -98,11 +137,11 @@
 }
 
 #booking-item:focused{
-    -fx-background-color: #F1C95F;
+    -fx-background-color: -fx-blue-light;
 }
 
 #booking-item:selected{
-    -fx-background-color: #F1C95F;
+    -fx-background-color: -fx-blue-light;
 }
 
 .grid-pane{
@@ -110,6 +149,16 @@
 }
 
 #booking-header{
-    -fx-font-size: 1.5em;
+    -fx-font-size: 2em;
     -fx-padding: 0.5em 0.7em;
+}
+
+#date-holder{
+    -fx-font-size: 1.15em;
+}
+
+#room-number{
+    -fx-font-weight: 900;
+    -fx-font-size: 3em;
+    -fx-text-fill: -fx-blue;
 }

@@ -1,18 +1,17 @@
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.regex.Pattern;
 
 public class CustomerMenu {
 
     Person newCustomer;
+    private double initHeight = 500;
 
     public void start(Stage dialogStage){
         newCustomer = new Person();
@@ -91,7 +90,7 @@ public class CustomerMenu {
             dialogStage.close();
         });
 
-        Scene s = new Scene(root, 650, 500);
+        Scene s = new Scene(root, 650, initHeight);
 
         Button btnSubmit = new Button("Submit");
         btnSubmit.setOnAction(e -> {
@@ -109,13 +108,16 @@ public class CustomerMenu {
                 missingData += "phone number!";
             }
             if(!missingData.equals("")) {
-                missingData = "Please provide information regarding:" + missingData;
+                String str = "Please provide information regarding:";
+                if(!errorContent.getText().contains(str)) {
+                    dialogStage.setHeight(initHeight + errorHolderPane.getHeight());
+                }
+                missingData = str + missingData;
                 errorContent.setWrapText(true);
                 errorContent.setText(missingData);
                 errorHeader.setTooltip(new Tooltip(missingData));
                 errorContent.setTooltip(new Tooltip(missingData));
                 errorHolderPane.setVisible(true);
-                dialogStage.setHeight(s.getHeight() + errorHolderPane.getHeight());
             }
             else{
                 if(Pattern.matches("[0-9]+", phoneField.getText()) && phoneField.getText().length() >= 10
@@ -124,6 +126,10 @@ public class CustomerMenu {
                     newCustomer.country = countryField.getText();
                     newCustomer.phoneNumber = phoneField.getText();
                     Main.mainController.personArrayList.add(newCustomer);
+                    Label informationLabel = new Label(LocalDate.now().toString() +
+                            ": added the customer #" + newCustomer.id);
+                    informationLabel.setId("activity-log-content");
+                    Main.mainController.activityMenu.content.getChildren().add(informationLabel);
                     dialogStage.close();
                 }
                 else{
