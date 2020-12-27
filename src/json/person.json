@@ -1,0 +1,37 @@
+{
+  "person":
+    [
+      {
+        "id": "1",
+        "name": "Mihai Virgil",
+        "country": "Romania",
+        "phone-number": "+40214100581",
+        "NID": "1800611016247",
+        "email": "mihai.virgil@yahoo.com"
+      },
+      {
+        "id": "2",
+        "name": "Irina Emanuel",
+        "country": "Romania",
+        "phone-number": "+40250339040",
+        "NID": "2760220177899",
+        "email": "e_irina_tha@gmail.com"
+      },
+      {
+        "id": "3",
+        "name": "Ábel Martin Albescu",
+        "country": "Hungary",
+        "phone-number": "+36685707402",
+        "NID": "2891223356314",
+        "email": "martin_abel@gmail.com"
+      },
+      {
+        "id": "4",
+        "name": "Denisa Lupei",
+        "country": "Romania",
+        "phone-number": "+40779113225",
+        "NID": "2730822228402",
+        "email": "deni_lupi15@gmail.com"
+      }
+    ]
+}

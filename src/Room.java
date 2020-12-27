@@ -8,6 +8,7 @@ public class Room {
     public int price;
 
     Room(int id, int floor, int number, int price){
+        ++overallId;
         this.id = id;
         this.floor = floor;
         this.number = number;

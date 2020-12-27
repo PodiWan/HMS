@@ -3,12 +3,8 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.control.Label;
-
-import javax.tools.Tool;
 
 public class HotelMap extends BorderPane {
 
@@ -37,7 +33,7 @@ public class HotelMap extends BorderPane {
             Tooltip.install(this, roomTooltip);
 
             this.prefWidthProperty().bind(parent.widthProperty().divide(4));
-            this.setPrefHeight(100);
+            this.setPrefHeight(250);
 
             this.setId("room-tile");
             this.setOnMouseClicked(e -> {
@@ -69,6 +65,8 @@ public class HotelMap extends BorderPane {
         this.rooms.getChildren().removeIf(node -> node instanceof RoomTile);
         //counter for the rooms on the same level as activeFloor
         int roomsOnActiveFloor = 0;
+        int firstRow = 0;
+        int secondRow = 8;
         //go through all the rooms of the hotel
         for (int i = 0; i < Main.mainController.roomArrayList.size(); ++i) {
             this.setPadding(new Insets(50, 50, 10, 50));
@@ -85,7 +83,10 @@ public class HotelMap extends BorderPane {
                                 "\nEnd date: " + roomTile.currentBooking.bookingEnd.toString());
                     }
 
-                this.rooms.add(roomTile, roomsOnActiveFloor++, 3);
+                if(roomsOnActiveFloor < 4)
+                    this.rooms.add(roomTile, roomsOnActiveFloor++, firstRow);
+                else
+                    this.rooms.add(roomTile, roomsOnActiveFloor++ - 4, secondRow);
             }
         }
     }
@@ -115,15 +116,13 @@ public class HotelMap extends BorderPane {
 
     HotelMap(){
         rooms = new GridPane();
+        this.rooms.setVgap(25);
 
         btnUp = new Button("⯅");
         btnDown = new Button("⯆");
 
         activeFloorLabel = new Label();
         activeFloorLabel.setId("floor-counter");
-
-        DoubleProperty fontSize = new SimpleDoubleProperty(5);
-        fontSize.bind(this.widthProperty().add(this.heightProperty()).divide(50));
 
         btnUp.setOnAction(e -> {
             if(activeFloor < Main.mainController.numberOfFloors) {

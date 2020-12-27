@@ -10,7 +10,7 @@ public class ActivitiesController extends VBox {
     public ActivitiesController(Stage primaryStage) {
 
         Button btnAddPerson = new Button();
-        btnAddPerson.setText("\uD83D\uDEC5");
+        btnAddPerson.setText("\uD83D\uDC64");
         btnAddPerson.setTooltip(new Tooltip("Add a new customer"));
 
         Button btnTasks = new Button();

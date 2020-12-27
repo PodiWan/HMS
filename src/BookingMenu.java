@@ -17,7 +17,6 @@ import java.util.regex.Pattern;
 public class BookingMenu {
 
     ComboBox<String> roomComboBox = new ComboBox<>();
-    ComboBox<String> receptionistComboBox = new ComboBox<>();
     ComboBox<String> personComboBox = new ComboBox<>();
 
     Booking newBooking;
@@ -34,11 +33,6 @@ public class BookingMenu {
             }
             if(!booked)
                 roomComboBox.getItems().add(iterator.id + ". " + iterator.floor + "-" +iterator.number);
-        }
-
-        //fill the combobox options with the receptionists
-        for (var iterator : Main.mainController.receptionistArrayList) {
-            receptionistComboBox.getItems().add(iterator.id + ". " + iterator.name);
         }
 
         //fill the combobox options with the people staying at the hotel
@@ -95,10 +89,10 @@ public class BookingMenu {
         HolderPane roomHolderPane = new HolderPane(roomLabel, roomComboBox, false);
 
         Label receptionistLabel = new Label("Receptionist");
-        receptionistComboBox.setPromptText("Receptionist");
-        receptionistComboBox.prefWidthProperty().bind(detailsPane.widthProperty().multiply(0.95));
+        Label receptionistIdLabel = new Label(Main.mainController.activeReceptionist.id + ". " +
+                Main.mainController.activeReceptionist.name);
 
-        HolderPane receptionistHolderPane = new HolderPane(receptionistLabel, receptionistComboBox, false);
+        HolderPane receptionistHolderPane = new HolderPane(receptionistLabel, receptionistIdLabel, false);
 
         Label personLabel = new Label("Person");
         personComboBox.setPromptText("Person");
@@ -142,14 +136,19 @@ public class BookingMenu {
             }
         });
 
-        //TODO: FIX
         //disable dates prior to the startDate for end date picker
         endDate.setDayCellFactory(datePicker -> new DateCell(){
             public void updateItem(LocalDate date, boolean empty){
                 super.updateItem(date, empty);
-                LocalDate firstDate = startDate.getValue().plusDays(1);
+                LocalDate firstDate;
+                if(startDate.getValue() != null) {
+                    firstDate = startDate.getValue().plusDays(1);
 
-                setDisable(empty || date.compareTo(firstDate) < 0);
+                    setDisable(empty || date.compareTo(firstDate) < 0);
+                }
+                else{
+                    setDisable(true);
+                }
             }
         });
 
@@ -168,11 +167,6 @@ public class BookingMenu {
             String missingData = "";
             if(roomComboBox.getValue() == null)
                 missingData += "room";
-            if(receptionistComboBox.getValue() == null) {
-                if (!missingData.equals(""))
-                    missingData += ", ";
-                missingData += "receptionist";
-            }
             if(personComboBox.getValue() == null){
                 if (!missingData.equals(""))
                     missingData += ", ";
@@ -202,7 +196,7 @@ public class BookingMenu {
             }
             else{
                 Booking newBooking = new Booking(Integer.parseInt(roomComboBox.getValue().split(Pattern.quote("."))[0]),
-                        Integer.parseInt(receptionistComboBox.getValue().split(Pattern.quote("."))[0]),
+                        Main.mainController.activeReceptionist.id,
                         Integer.parseInt(personComboBox.getValue().split(Pattern.quote("."))[0]),
                         startDate.getValue(), endDate.getValue());
 

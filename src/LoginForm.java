@@ -17,8 +17,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class LoginForm {
-
-    //TODO write credentials to file AND read them when logging in
     public void start(Stage primaryStage){
         int formWidth = 400;
         int formHeight = 275;
@@ -43,8 +41,9 @@ public class LoginForm {
         rect.setY(0);
         rect.setWidth(0);
         rect.setHeight(rectHeight);
-        rect.setFill(Color.web("#F1C95F"));
+        rect.setFill(Color.web("#349AF7"));
         root.getChildren().add(rect);
+        root.setStyle("-fx-background-color: #FCFCFC");
 
         AnimationTimer timer =
                 new AnimationTimer() {
@@ -56,7 +55,7 @@ public class LoginForm {
                         else this.stop();
                     }
                 };
-//        timer.start();
+        timer.start();
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -68,7 +67,7 @@ public class LoginForm {
         loginText.setId("login-title");
         grid.add(loginText, 0, 0, 2, 1);
 
-        Text userText = new Text("Username: ");
+        Text userText = new Text("User id: ");
         grid.add(userText, 0, 1);
         TextField userField = new TextField();
         grid.add(userField, 1, 1);
@@ -81,12 +80,19 @@ public class LoginForm {
         Button button = new Button("Login");
         button.setLayoutX(primaryStage.getMaxWidth() - 20);
         EventHandler<ActionEvent> buttonClick = e -> {
-            primaryStage.close();
-            MainForm mainForm = new MainForm();
-            try {
-                mainForm.start(primaryStage);
-            } catch (Exception exception) {
-                System.out.println(exception.toString());
+
+            for(var user : Main.mainController.receptionistArrayList)
+                if(Integer.parseInt(userField.getText()) == user.id && passwordField.getText().equals(user.password))
+                    Main.mainController.activeReceptionist = user;
+
+            if(Main.mainController.activeReceptionist != null) {
+                primaryStage.close();
+                MainForm mainForm = new MainForm();
+                try {
+                    mainForm.start(primaryStage);
+                } catch (Exception exception) {
+                    System.out.println(exception.toString());
+                }
             }
         };
         button.setOnAction(buttonClick);
@@ -98,9 +104,6 @@ public class LoginForm {
 
         HolderPane buttonHolder = new HolderPane(btnClose, button, true);
 
-//        HBox hboxButton = new HBox(10);
-//        hboxButton.setAlignment(Pos.BOTTOM_RIGHT);
-//        hboxButton.getChildren().add(buttonHolder);
         grid.add(buttonHolder, 1, 3);
 
         root.add(grid, 1, 0);

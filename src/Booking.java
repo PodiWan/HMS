@@ -11,6 +11,7 @@ public class Booking {
     LocalDate bookingEnd;
 
     public Booking(int id, int room, int receptionist, int person, LocalDate bookingStart, LocalDate bookingEnd){
+        ++overallId;
         this.id = id;
         this.bookedRoom = Main.mainController.roomArrayList.get(room - 1);
         this.bookingReceptionist = new Receptionist();
