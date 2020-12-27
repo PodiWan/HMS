@@ -19,7 +19,7 @@ public class SideMenu extends VBox {
         sp.setStyle("-fx-background: #637AA6;");
         sp.setFitToWidth(true);
 
-        this.setAlignment(Pos.BASELINE_LEFT);
+        this.setAlignment(Pos.TOP_LEFT);
         bookingItemList = new ArrayList<>();
 
         this.getChildren().add(sp);

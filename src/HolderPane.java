@@ -1,18 +1,23 @@
+import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 
 public class HolderPane extends GridPane {
-    HolderPane(Node title, Node input, boolean horizontal){
+    HolderPane(Node firstNode, Node secondNode, boolean horizontal){
         this.setVgap(5);
-        this.setHgap(210);
+
+        ColumnConstraints c1 = new ColumnConstraints();
+        c1.setHgrow(Priority.ALWAYS);
+        this.getColumnConstraints().add(c1);
 
         if(!horizontal) {
-            this.add(title, 0, 0);
-            this.add(input, 0, 1);
+            this.add(firstNode, 0, 0);
+            this.add(secondNode, 0, 1, 2, 2);
         }
         else{
-            this.add(title, 0, 0);
-            this.add(input, 1, 0);
+            this.add(firstNode, 0, 0);
+            this.add(secondNode, 1, 0);
+            GridPane.setColumnIndex(secondNode, 1);
         }
     }
 }

@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 *{
-    -fx-white: #F2F6FC;
+    -fx-white-mint: #F2F6FC;
+    -fx-white: #FCFCFC;
 }
 
 .root *{
@@ -19,7 +20,7 @@
     -fx-border-style: none;
     -fx-font-size: 1.25em;
     -fx-padding: 0.5em 1em;
-    -fx-text-fill: #FCFCFC;
+    -fx-text-fill: -fx-white;
 }
 
 .button:hover{
@@ -27,10 +28,10 @@
 }
 
 #side-menu{
-    -fx-background-color: #349AF7;
+    -fx-background-color: -fx-white;
     -fx-border-color: #349AF7;
-    -fx-border-radius: 0 10 0 0;
-    -fx-background-radius: 0 10 0 0;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
 }
 
 #booking-controller{
@@ -39,13 +40,14 @@
 }
 
 #booking-controller-last-button{
-    -fx-border-radius: 0 10 0 0;
-    -fx-background-radius: 0 10 0 0;
+    -fx-border-radius: 0 5 0 0;
+    -fx-background-radius: 0 5 0 0;
+    -fx-padding: 0.7em 1em;
 }
 
 #btn-close:hover{
     -fx-background-color: #E3170A;
-    -fx-text-fill: #FCFCFC;
+    -fx-text-fill: -fx-white;
 }
 
 #login-title{
@@ -58,7 +60,7 @@
 
 #hotel-map{
     -fx-font-size: 1.5em;
-    -fx-background-color: #FCFCFC;
+    -fx-background-color: -fx-white;
 }
 
 #floor-counter{
@@ -70,12 +72,12 @@
 }
 
 #room-tile{
-    -fx-background-color: #FCFCFC;
+    -fx-background-color: -fx-white;
     -fx-border-color: #000000;
 }
 
 #room-tile:hover{
-    -fx-background-color: -fx-white;
+    -fx-background-color: -fx-white-mint;
 }
 
 #room-tile:focused{
@@ -88,11 +90,11 @@
 
 #booking-item{
     -fx-font-size: 2em;
-    -fx-background-color: #FCFCFC;
+    -fx-background-color: -fx-white;
 }
 
 #booking-item:hover{
-    -fx-background-color: -fx-white;
+    -fx-background-color: -fx-white-mint;
 }
 
 #booking-item:focused{
@@ -104,5 +106,10 @@
 }
 
 .grid-pane{
-    -fx-background: #FCFCFC;
+    -fx-background: -fx-white;
+}
+
+#booking-header{
+    -fx-font-size: 1.5em;
+    -fx-padding: 0.5em 0.7em;
 }

@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
+*{
+    -fx-white-mint: #F2F6FC;
+    -fx-fuck: #FCF6F2;
+    -fx-white: #FCFCFC;
+    -fx-blue: #349AF7;
+    -fx-blue-dark: #0869C4;
+}
+
 .root{
     -fx-border-color: #637AA6;
 }
@@ -15,26 +23,27 @@
     -fx-background-radius: 0px;
     -fx-focus-color: none;
     -fx-faint-focus-color: transparent;
-    -fx-background-color: #349AF7;
-    -fx-text-fill: #FFFFFF;
+    -fx-background-color: -fx-blue;
+    -fx-text-fill: -fx-white;
     -fx-border-style: none;
 }
 
 .button:hover{
-    -fx-background-color: #0869C4;
+    -fx-background-color: -fx-blue-dark;
 }
 
 #left-column{
-    -fx-background-color: #F3F2F3
+    -fx-background-color: -fx-blue;
 }
 
 #left-column .label{
+    -fx-text-fill: -fx-white;
     -fx-font-size: 2em;
     -fx-text-alignment: center;
 }
 
 .details-column{
-    -fx-background-color: #F3ECE2;
+    -fx-background-color: -fx-white;
     -fx-font-size: 1.5em;
 }
 

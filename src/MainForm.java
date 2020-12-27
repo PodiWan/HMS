@@ -1,12 +1,21 @@
+import javafx.beans.InvalidationListener;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
 import java.awt.*;
 import java.util.Collections;
 
@@ -60,7 +69,7 @@ public class MainForm {
 
         HBox topBar = new HBox();
         topBar.setAlignment(Pos.TOP_RIGHT);
-        topBar.setStyle("-fx-background-color: #F3ECE2");
+        topBar.setStyle("-fx-background-color: #FCFCFC");
 
         GridPane headerBar = new GridPane();
 
@@ -109,23 +118,42 @@ public class MainForm {
         topBar.getChildren().add(btnMin);
         topBar.getChildren().add(btnState);
         topBar.getChildren().add(btnClose);
-        
-        Main.mainController.sideMenu.prefWidthProperty().bind(primaryStage.widthProperty().multiply(0.20));
-        Main.mainController.sideMenu.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        borderPane.setTop(topBar);
+
+        BorderPane mainView = new BorderPane();
+        Insets mainViewInsets = new Insets(10);
+        mainView.setStyle("-fx-background-color: #FCFCFC");
 
         Main.mainController.sideMenu.content.prefWidthProperty().bind(primaryStage.widthProperty().multiply(0.20));
         Main.mainController.sideMenu.content.setPrefHeight(Region.USE_COMPUTED_SIZE);
-        borderPane.setLeft(Main.mainController.sideMenu);
-        borderPane.setTop(topBar);
+        mainView.setLeft(Main.mainController.sideMenu);
 
-        BookingController bcMenu = new BookingController(Main.mainController.sideMenu);
-        bcMenu.setId("booking-controller");
-        bcMenu.prefWidthProperty().bind(Main.mainController.sideMenu.content.widthProperty());
+        BorderPane.setMargin(Main.mainController.sideMenu, mainViewInsets);
+
+        ActivitiesController activitiesController = new ActivitiesController();
+        activitiesController.setPrefWidth(75);
+        activitiesController.prefHeightProperty().bind(primaryStage.heightProperty());
+
+        borderPane.setLeft(activitiesController);
 
         Main.mainController.sideMenu.setId("side-menu");
 
-        //insert booking controller
-        Main.mainController.sideMenu.getChildren().add(bcMenu);
+        Button btnAddBooking = new Button();
+        btnAddBooking.setText("\u2795");
+        btnAddBooking.setTooltip(new Tooltip("Add a new booking"));
+        btnAddBooking.setId("booking-controller-last-button");
+
+        btnAddBooking.setOnAction(e -> {
+            BookingMenu bm = new BookingMenu();
+            Stage dialogStage = new Stage();
+            bm.start(Main.mainController.sideMenu.bookingItemList, dialogStage);
+        });
+
+        Label bookingsHeader = new Label("Active bookings");
+        bookingsHeader.setId("booking-header");
+
+        HolderPane hp = new HolderPane(bookingsHeader, btnAddBooking, true);
+        Main.mainController.sideMenu.getChildren().add(hp);
         //reverse list of children since the prior instruction adds the controller at the end of the list of children
         //visually, this means that the controller is at the bottom, so the swap is necessary for design purposes
         ObservableList<Node> workingCollection = FXCollections.observableArrayList(Main.mainController.sideMenu.getChildren());
@@ -141,7 +169,36 @@ public class MainForm {
         hm = new HotelMap();
         hm.activeFloor = 0;
         hm.getStyleClass().clear();
-        borderPane.setCenter(hm);
+
+        GridPane bottomView = new GridPane();
+        bottomView.prefHeightProperty().bind(primaryStage.heightProperty().multiply(0.30));
+        BorderPane.setMargin(bottomView, mainViewInsets);
+
+        VBox left = new VBox();
+        left.setStyle("-fx-background-color: red");
+        left.prefWidthProperty().bind(bottomView.widthProperty());
+        left.prefHeightProperty().bind(bottomView.heightProperty());
+
+        VBox right = new VBox();
+        right.setStyle("-fx-background-color: blue");
+        right.prefWidthProperty().bind(bottomView.widthProperty());
+        right.prefHeightProperty().bind(bottomView.heightProperty());
+
+        ColumnConstraints c1 = new ColumnConstraints();
+        c1.setPercentWidth(75);
+        ColumnConstraints c2 = new ColumnConstraints();
+        c2.setPercentWidth(25);
+
+        bottomView.getColumnConstraints().addAll(c1, c2);
+
+        bottomView.add(left, 0, 0);
+        bottomView.add(right, 1, 0);
+
+
+        mainView.setCenter(hm);
+        mainView.setBottom(bottomView);
+
+        borderPane.setCenter(mainView);
 
         primaryStage.setScene(s);
         primaryStage.show();
