@@ -153,6 +153,7 @@ public class HotelMap extends BorderPane {
     HotelMap(){
         rooms = new GridPane();
         this.rooms.setVgap(25);
+        this.rooms.setHgap(5);
 
         btnUp = new Button("⯅");
         btnDown = new Button("⯆");

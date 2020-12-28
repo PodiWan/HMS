@@ -37,6 +37,7 @@ public class TaskItem extends Pane {
                     Main.mainController.activityMenu.getContent().getChildren().add(informationLabel);
                     Main.mainController.taskArrayList.remove(i);
                     Main.mainController.taskMenu.getContent().getChildren().remove(i);
+                    Main.writeTasks();
                 }
         });
 
@@ -49,6 +50,7 @@ public class TaskItem extends Pane {
                     Main.mainController.activityMenu.getContent().getChildren().add(informationLabel);
                     Main.mainController.taskArrayList.remove(i);
                     Main.mainController.taskMenu.getContent().getChildren().remove(i);
+                    Main.writeTasks();
                 }
         });
     }

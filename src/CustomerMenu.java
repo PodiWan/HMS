@@ -20,7 +20,7 @@ public class CustomerMenu {
         this.newCustomer = newCustomer;
     }
 
-    private double initHeight = 700;
+    private final double initHeight = 700;
 
     public void start(Stage dialogStage){
         newCustomer = new Person();
@@ -77,7 +77,7 @@ public class CustomerMenu {
 
         Label phoneLabel = new Label("Phone number");
         TextField phoneField = new TextField();
-        phoneField.setPromptText("e.g.: +40123456789");
+        phoneField.setPromptText("e.g.: 0040123456789");
         phoneField.prefWidthProperty().bind(detailsPane.widthProperty().multiply(0.95));
 
         HolderPane phoneHolderPane = new HolderPane(phoneLabel, phoneField, false);
@@ -128,7 +128,17 @@ public class CustomerMenu {
             if(phoneField.getText().isEmpty()){
                 if (!missingData.equals(""))
                     missingData += ", ";
-                missingData += "phone number!";
+                missingData += "phone number";
+            }
+            if(nidField.getText().isEmpty()){
+                if (!missingData.equals(""))
+                    missingData += ", ";
+                missingData += "nid";
+            }
+            if(emailField.getText().isEmpty()){
+                if (!missingData.equals(""))
+                    missingData += ", ";
+                missingData += "email!";
             }
             if(!missingData.equals("")) {
                 String str = "Please provide information regarding:";
@@ -144,18 +154,31 @@ public class CustomerMenu {
             }
             else{
                 if(Pattern.matches("[0-9]+", phoneField.getText()) && phoneField.getText().length() >= 10
-                && phoneField.getText().length() <= 15){
-                    newCustomer.setName(nameField.getText());
-                    newCustomer.setCountry(countryField.getText());
-                    newCustomer.setPhoneNumber(phoneField.getText());
-                    Main.mainController.personArrayList.add(newCustomer);
-                    Label informationLabel = new Label(LocalDate.now().toString() +
-                            ": added the customer #" + newCustomer.getId());
-                    informationLabel.setId("activity-log-content");
-                    Main.mainController.activityMenu.getContent().getChildren().add(informationLabel);
-                    dialogStage.close();
+                && phoneField.getText().length() <= 15) {
+                    if (Pattern.matches("[0-9]+", nidField.getText())) {
+                        if (Pattern.matches("[a-zA-Z0-9._]+@[a-z].com", emailField.getText())) {
+                            newCustomer.setName(nameField.getText());
+                            newCustomer.setCountry(countryField.getText());
+                            newCustomer.setPhoneNumber(phoneField.getText());
+                            newCustomer.setNID(nidField.getText());
+                            newCustomer.setEmail(emailField.getText());
+                            Main.mainController.personArrayList.add(newCustomer);
+                            Label informationLabel = new Label(LocalDate.now().toString() +
+                                    ": added the customer #" + newCustomer.getId());
+                            informationLabel.setId("activity-log-content");
+                            Main.mainController.activityMenu.getContent().getChildren().add(informationLabel);
+                            Main.writeCustomers();
+                            dialogStage.close();
+                        } else {
+                            errorContent.setText("Incorrect email!");
+                            errorHolderPane.setVisible(true);
+                        }
+                    } else {
+                        errorContent.setText("Incorrect NID!");
+                        errorHolderPane.setVisible(true);
+                    }
                 }
-                else{
+                else {
                     errorContent.setText("Incorrect phone number!");
                     errorHolderPane.setVisible(true);
                 }

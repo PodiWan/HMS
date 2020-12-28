@@ -134,11 +134,14 @@
     -fx-background-color: -fx-white;
     -fx-border-color: -fx-blue;
     -fx-border-width: 2.5;
+}
+
+#room-tile:hover{
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0.5, 0, 0);
 }
 
 #room-tile .holder-pane{
-    -fx-padding: 7em 1em;
+    -fx-padding: 2.5em 1em 0 1em;
 }
 
 #room-tile .holder-pane .label{

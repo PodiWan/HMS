@@ -3,6 +3,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 import java.time.LocalDate;
 
@@ -45,6 +46,7 @@ public class BookingItem extends BorderPane {
                     Main.mainController.activityMenu.getContent().getChildren().add(informationLabel);
                     Main.mainController.bookingArrayList.remove(i);
                     Main.mainController.sideMenu.getContent().getChildren().remove(i);
+                    Main.writeBookings();
                     MainForm.hm.updateMap();
                 }
             }
@@ -53,13 +55,19 @@ public class BookingItem extends BorderPane {
         menuItemCheckOut.setOnAction(actionEvent -> {
             for (int i = 0; i < Main.mainController.bookingArrayList.size(); ++i) {
                 if(Main.mainController.bookingArrayList.get(i).getId() == this.heldBooking.getId()) {
-                    Label informationLabel = new Label(LocalDate.now().toString() +
-                            ": checked-out booking #" + Main.mainController.bookingArrayList.get(i).getId());
-                    informationLabel.setId("activity-log-content");
-                    Main.mainController.activityMenu.getContent().getChildren().add(informationLabel);
-                    Main.mainController.bookingArrayList.remove(i);
-                    Main.mainController.sideMenu.getContent().getChildren().remove(i);
-                    MainForm.hm.updateMap();
+                    Stage dialogStage = new Stage();
+                    CheckOutMenu com = new CheckOutMenu();
+                    com.setCheckOutBooking(Main.mainController.bookingArrayList.get(i));
+                    if(com.start(dialogStage)) {
+                        Label informationLabel = new Label(LocalDate.now().toString() +
+                                ": checked-out booking #" + Main.mainController.bookingArrayList.get(i).getId());
+                        informationLabel.setId("activity-log-content");
+                        Main.mainController.activityMenu.getContent().getChildren().add(informationLabel);
+                        Main.mainController.bookingArrayList.remove(i);
+                        Main.mainController.sideMenu.getContent().getChildren().remove(i);
+                        Main.writeBookings();
+                        MainForm.hm.updateMap();
+                    }
                 }
             }
         });

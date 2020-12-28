@@ -86,6 +86,7 @@ public class TaskMenu {
                         taskField.getText());
                 Main.mainController.taskArrayList.add(newTask);
                 Main.mainController.taskMenu.getContent().getChildren().add(new TaskItem(newTask));
+                Main.writeTasks();
                 dialogStage.close();
             }
         });

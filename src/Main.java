@@ -7,6 +7,8 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import org.json.simple.parser.JSONParser;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 
 public class Main extends Application {
@@ -102,6 +104,110 @@ public class Main extends Application {
         }
     }
 
+    public void readTasks(){
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = readJson("src/json/task.json");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //get the receptionists from the json add them to the receptionArrayList
+        assert jsonObject != null;
+        JSONArray tasksJSON = ((JSONArray)jsonObject.get("task"));
+        for(var booking : tasksJSON){
+            JSONObject taskObject = (JSONObject) booking;
+            mainController.taskArrayList.add(new Task(Integer.parseInt(taskObject.get("id").toString()),
+                    taskObject.get("text").toString()));
+        }
+    }
+
+    public void writeReceptionists(){
+        JSONObject receptionistFile = new JSONObject();
+        JSONArray receptionists = new JSONArray();
+        for(var receptionist : Main.mainController.receptionistArrayList) {
+            JSONObject receptionistDetails = new JSONObject();
+            receptionistDetails.put("id", receptionist.getId());
+            receptionistDetails.put("name", receptionist.getName());
+            receptionistDetails.put("isAdmin", receptionist.isAdmin());
+            receptionistDetails.put("password", receptionist.getPassword());
+
+            receptionists.add(receptionistDetails);
+        }
+        receptionistFile.put("receptionist", receptionists);
+
+        try (FileWriter file = new FileWriter("src/json/receptionist.json")) {
+            file.write(receptionistFile.toJSONString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void writeCustomers(){
+        JSONObject customerFile = new JSONObject();
+        JSONArray customers = new JSONArray();
+        for(var customer : Main.mainController.personArrayList) {
+            JSONObject customerDetails = new JSONObject();
+            customerDetails.put("id", customer.getId());
+            customerDetails.put("name", customer.getName());
+            customerDetails.put("country", customer.getCountry());
+            customerDetails.put("phone-number", customer.getPhoneNumber());
+            customerDetails.put("NID", customer.getNID());
+            customerDetails.put("email", customer.getEmail());
+
+            customers.add(customerDetails);
+        }
+        customerFile.put("person", customers);
+
+        try (FileWriter file = new FileWriter("src/json/person.json")) {
+            file.write(customerFile.toJSONString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void writeBookings(){
+        JSONObject fileObject = new JSONObject();
+        JSONArray objects = new JSONArray();
+        for(var booking : Main.mainController.bookingArrayList) {
+            JSONObject objectDetails = new JSONObject();
+            objectDetails.put("id", booking.getId());
+            objectDetails.put("room", booking.getBookedRoom().getId());
+            objectDetails.put("receptionist", booking.getBookingReceptionist().getId());
+            objectDetails.put("person", booking.getBookingPerson().getId());
+            objectDetails.put("start-date", booking.getBookingStart().toString());
+            objectDetails.put("end-date", booking.getBookingEnd().toString());
+
+            objects.add(objectDetails);
+        }
+        fileObject.put("booking", objects);
+
+        try (FileWriter file = new FileWriter("src/json/booking.json")) {
+            file.write(fileObject.toJSONString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void writeTasks(){
+        JSONObject fileObject = new JSONObject();
+        JSONArray objects = new JSONArray();
+        for(var task : Main.mainController.taskArrayList) {
+            JSONObject objectDetails = new JSONObject();
+            objectDetails.put("id", task.getId());
+            objectDetails.put("text", task.getText());
+
+            objects.add(objectDetails);
+        }
+        fileObject.put("task", objects);
+
+        try (FileWriter file = new FileWriter("src/json/task.json")) {
+            file.write(fileObject.toJSONString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void start(Stage primaryStage){
 
@@ -109,6 +215,7 @@ public class Main extends Application {
         readCustomers();
         readRooms();
         readBookings();
+        readTasks();
 
         mainController.activeReceptionist = null;
 
@@ -118,7 +225,6 @@ public class Main extends Application {
         LoginForm loginForm = new LoginForm();
         loginForm.start(primaryStage);
     }
-
 
     public static void main(String[] args) {
         launch(args);

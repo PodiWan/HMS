@@ -162,6 +162,9 @@ public class MainForm {
             Main.mainController.sideMenu.getContent().getChildren().add(Main.mainController.sideMenu.getItemList().get(i));
         }
 
+        for(var task : Main.mainController.taskArrayList)
+            Main.mainController.taskMenu.getContent().getChildren().add(new TaskItem(task));
+
         hm = new HotelMap();
         hm.setActiveFloor(0);
         hm.getStyleClass().clear();

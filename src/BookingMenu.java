@@ -1,3 +1,9 @@
+import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -9,7 +15,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class BookingMenu {
@@ -41,11 +47,35 @@ public class BookingMenu {
                 roomComboBox.getItems().add(iterator.getId() + ". " + iterator.getFloor() + "-" +iterator.getNumber());
         }
 
-        //fill the combobox options with the people staying at the hotel
-        for (var iterator : Main.mainController.personArrayList) {
-            personComboBox.getItems().add(iterator.getId() + ". " + iterator.getName());
-        }
-    }
+        personComboBox.setEditable(true);
+
+        ArrayList<String> options = new ArrayList<>();
+        for (var iterator : Main.mainController.personArrayList)
+            options.add(iterator.getId() + ". " + iterator.getName());
+
+
+        ObservableList<String> items = FXCollections.observableArrayList(options);
+        // Create a FilteredList wrapping the ObservableList.
+        FilteredList<String> filteredItems = new FilteredList<>(items, p -> true);
+
+        personComboBox.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
+            final TextField editor = personComboBox.getEditor();
+            final String selected = personComboBox.getSelectionModel().getSelectedItem();
+            Platform.runLater(() -> {
+                if (selected == null || !selected.contains(editor.getText())) {
+                    filteredItems.setPredicate(item -> {
+                        if (item.toUpperCase().contains(newValue.toUpperCase())) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    });
+                }
+            });
+        });
+
+        personComboBox.setItems(filteredItems);
+}
 
     private final double initHeight = 670.0;
 
@@ -215,6 +245,7 @@ public class BookingMenu {
                         ": registered booking #" + newBooking.getId());
                 informationLabel.setId("activity-log-content");
                 Main.mainController.activityMenu.getContent().getChildren().add(informationLabel);
+                Main.writeBookings();
                 dialogStage.close();
             }
         });
