@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 public class HotelMap extends BorderPane {
 
     static class RoomTile extends BorderPane {
-
         private int roomId;
         private final Label roomNumberLabel;
         private Booking currentBooking;
@@ -37,7 +36,7 @@ public class HotelMap extends BorderPane {
             this.setOnMouseClicked(e -> {
                 if(!this.isFocused()) {
                     if(this.currentBooking != null)
-                        parent.highlightRoom(this.currentBooking.bookedRoom);
+                        parent.highlightRoom(this.currentBooking.getBookedRoom());
                 }
                 else
                     parent.requestFocus();
@@ -47,11 +46,51 @@ public class HotelMap extends BorderPane {
         }
     }
 
-    int activeFloor;
-    Label activeFloorLabel;
-    Button btnUp;
-    Button btnDown;
-    GridPane rooms;
+    private int activeFloor;
+    private Label activeFloorLabel;
+    private Button btnUp;
+    private Button btnDown;
+    private GridPane rooms;
+
+    public int getActiveFloor() {
+        return activeFloor;
+    }
+
+    public void setActiveFloor(int activeFloor) {
+        this.activeFloor = activeFloor;
+    }
+
+    public Label getActiveFloorLabel() {
+        return activeFloorLabel;
+    }
+
+    public void setActiveFloorLabel(Label activeFloorLabel) {
+        this.activeFloorLabel = activeFloorLabel;
+    }
+
+    public Button getBtnUp() {
+        return btnUp;
+    }
+
+    public void setBtnUp(Button btnUp) {
+        this.btnUp = btnUp;
+    }
+
+    public Button getBtnDown() {
+        return btnDown;
+    }
+
+    public void setBtnDown(Button btnDown) {
+        this.btnDown = btnDown;
+    }
+
+    public GridPane getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(GridPane rooms) {
+        this.rooms = rooms;
+    }
 
     void updateLabel(){
         activeFloorLabel.setText("Floor: " + activeFloor);
@@ -68,17 +107,17 @@ public class HotelMap extends BorderPane {
         //go through all the rooms of the hotel
         for (int i = 0; i < Main.mainController.roomArrayList.size(); ++i) {
             this.setPadding(new Insets(50, 50, 10, 50));
-            if(Main.mainController.roomArrayList.get(i).floor == activeFloor) {
+            if(Main.mainController.roomArrayList.get(i).getFloor() == activeFloor) {
                 RoomTile roomTile = new RoomTile(this);
-                roomTile.setRoomId(Main.mainController.roomArrayList.get(i).id);
-                roomTile.setRoomNumber(Main.mainController.roomArrayList.get(i).number);
+                roomTile.setRoomId(Main.mainController.roomArrayList.get(i).getId());
+                roomTile.setRoomNumber(Main.mainController.roomArrayList.get(i).getNumber());
 
                 for(var booking : Main.mainController.bookingArrayList)
-                    if(booking.bookedRoom.id == roomTile.roomId) {
+                    if(booking.getBookedRoom().getId() == roomTile.roomId) {
                         roomTile.setCurrentBooking(booking);
-                        roomTile.roomTooltip.setText("Booked by: " + roomTile.currentBooking.bookingPerson.name +
-                                "\nStart date: " + roomTile.currentBooking.bookingStart.toString() +
-                                "\nEnd date: " + roomTile.currentBooking.bookingEnd.toString());
+                        roomTile.roomTooltip.setText("Booked by: " + roomTile.currentBooking.getBookingPerson().getName() +
+                                "\nStart date: " + roomTile.currentBooking.getBookingStart().toString() +
+                                "\nEnd date: " + roomTile.currentBooking.getBookingEnd().toString());
                     }
 
                 if(roomsOnActiveFloor < 4)
@@ -93,14 +132,14 @@ public class HotelMap extends BorderPane {
         RoomTile highlightRoom = null;
 
         for(var node : this.rooms.getChildren())
-            if(node instanceof RoomTile && ((RoomTile) node).roomId == selectedRoom.id)
+            if(node instanceof RoomTile && ((RoomTile) node).roomId == selectedRoom.getId())
                 highlightRoom = ((RoomTile) node);
         assert highlightRoom != null;
         highlightRoom.requestFocus();
 
-        Label personLabel = new Label("Booked by: " + highlightRoom.currentBooking.bookingPerson.name);
-        Label startDateLabel = new Label("Start date: " + highlightRoom.currentBooking.bookingStart.toString());
-        Label endDateLabel = new Label("End date: " + highlightRoom.currentBooking.bookingEnd.toString());
+        Label personLabel = new Label("Booked by: " + highlightRoom.currentBooking.getBookingPerson().getName());
+        Label startDateLabel = new Label("Start date: " + highlightRoom.currentBooking.getBookingStart().toString());
+        Label endDateLabel = new Label("End date: " + highlightRoom.currentBooking.getBookingEnd().toString());
         HolderPane hp = new HolderPane(startDateLabel, endDateLabel, false);
         HolderPane mainHp = new HolderPane(personLabel, hp, false);
 

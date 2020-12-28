@@ -1,11 +1,49 @@
 public class Receptionist {
-    //TODO make private
+    private int id;
+    private static int overallId;
+    private boolean isAdmin;
+    private String name;
+    private String password;
 
-    public int id;
-    public static int overallId;
-    public boolean isAdmin;
-    public String name;
-    public String password;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public static int getOverallId() {
+        return overallId;
+    }
+
+    public static void setOverallId(int overallId) {
+        Receptionist.overallId = overallId;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     Receptionist(int id, boolean isAdmin, String name, String password){
         ++overallId;

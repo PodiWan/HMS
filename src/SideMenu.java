@@ -7,9 +7,24 @@ import javafx.scene.layout.VBox;
 import java.util.ArrayList;
 
 public class SideMenu extends VBox {
-    ArrayList<Pane> itemList;
+    private ArrayList<Pane> itemList;
+    private VBox content;
 
-    VBox content;
+    public ArrayList<Pane> getItemList() {
+        return itemList;
+    }
+
+    public void setItemList(ArrayList<Pane> itemList) {
+        this.itemList = itemList;
+    }
+
+    public VBox getContent() {
+        return content;
+    }
+
+    public void setContent(VBox content) {
+        this.content = content;
+    }
 
     public SideMenu() {
         content = new VBox();

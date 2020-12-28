@@ -8,7 +8,15 @@ import java.time.LocalDate;
 
 public class BookingItem extends BorderPane {
 
-    Booking heldBooking;
+    private Booking heldBooking;
+
+    public Booking getHeldBooking() {
+        return heldBooking;
+    }
+
+    public void setHeldBooking(Booking heldBooking) {
+        this.heldBooking = heldBooking;
+    }
 
     public BookingItem(Booking booking) {
         this.heldBooking = booking;
@@ -16,11 +24,11 @@ public class BookingItem extends BorderPane {
         this.setId("booking-item");
 
         Label lBookingPerson = new Label();
-        lBookingPerson.setText(this.heldBooking.bookingPerson.name);
+        lBookingPerson.setText(this.heldBooking.getBookingPerson().getName());
         lBookingPerson.setId("booking-item-header");
 
         Label lBookingInfo = new Label();
-        lBookingInfo.setText("Booked room: " + this.heldBooking.bookedRoom.number);
+        lBookingInfo.setText("Booked room: " + this.heldBooking.getBookedRoom().getNumber());
         lBookingInfo.setId("booking-item-content");
 
         this.setTop(lBookingPerson);
@@ -30,13 +38,13 @@ public class BookingItem extends BorderPane {
         MenuItem menuItemDelete = new MenuItem("Delete");
         menuItemDelete.setOnAction(actionEvent -> {
             for (int i = 0; i < Main.mainController.bookingArrayList.size(); ++i) {
-                if(Main.mainController.bookingArrayList.get(i).id == this.heldBooking.id) {
+                if(Main.mainController.bookingArrayList.get(i).getId() == this.heldBooking.getId()) {
                     Label informationLabel = new Label(LocalDate.now().toString() +
-                            ": deleted booking #" + Main.mainController.bookingArrayList.get(i).id);
+                            ": deleted booking #" + Main.mainController.bookingArrayList.get(i).getId());
                     informationLabel.setId("activity-log-content");
-                    Main.mainController.activityMenu.content.getChildren().add(informationLabel);
+                    Main.mainController.activityMenu.getContent().getChildren().add(informationLabel);
                     Main.mainController.bookingArrayList.remove(i);
-                    Main.mainController.sideMenu.content.getChildren().remove(i);
+                    Main.mainController.sideMenu.getContent().getChildren().remove(i);
                     MainForm.hm.updateMap();
                 }
             }
@@ -44,13 +52,13 @@ public class BookingItem extends BorderPane {
         MenuItem menuItemCheckOut = new MenuItem("Check-out");
         menuItemCheckOut.setOnAction(actionEvent -> {
             for (int i = 0; i < Main.mainController.bookingArrayList.size(); ++i) {
-                if(Main.mainController.bookingArrayList.get(i).id == this.heldBooking.id) {
+                if(Main.mainController.bookingArrayList.get(i).getId() == this.heldBooking.getId()) {
                     Label informationLabel = new Label(LocalDate.now().toString() +
-                            ": checked-out booking #" + Main.mainController.bookingArrayList.get(i).id);
+                            ": checked-out booking #" + Main.mainController.bookingArrayList.get(i).getId());
                     informationLabel.setId("activity-log-content");
-                    Main.mainController.activityMenu.content.getChildren().add(informationLabel);
+                    Main.mainController.activityMenu.getContent().getChildren().add(informationLabel);
                     Main.mainController.bookingArrayList.remove(i);
-                    Main.mainController.sideMenu.content.getChildren().remove(i);
+                    Main.mainController.sideMenu.getContent().getChildren().remove(i);
                     MainForm.hm.updateMap();
                 }
             }
@@ -60,11 +68,11 @@ public class BookingItem extends BorderPane {
             //when left-clicked
             if(mouseEvent.getButton() == MouseButton.PRIMARY) {
                 //move the map to the correct floor (if necessary) and highlight the room
-                if(MainForm.hm.activeFloor != this.heldBooking.bookedRoom.floor) {
-                    MainForm.hm.activeFloor = this.heldBooking.bookedRoom.floor;
+                if(MainForm.hm.getActiveFloor() != this.heldBooking.getBookedRoom().getFloor()) {
+                    MainForm.hm.setActiveFloor(this.heldBooking.getBookedRoom().getFloor());
                     MainForm.hm.updateMap();
                 }
-                MainForm.hm.highlightRoom(this.heldBooking.bookedRoom);
+                MainForm.hm.highlightRoom(this.heldBooking.getBookedRoom());
             }
             if(mouseEvent.getButton() == MouseButton.SECONDARY)
                 contextMenu.show(this, mouseEvent.getScreenX(), mouseEvent.getScreenY());

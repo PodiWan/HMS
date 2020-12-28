@@ -10,7 +10,16 @@ import java.util.regex.Pattern;
 
 public class CustomerMenu {
 
-    Person newCustomer;
+    private Person newCustomer;
+
+    public Person getNewCustomer() {
+        return newCustomer;
+    }
+
+    public void setNewCustomer(Person newCustomer) {
+        this.newCustomer = newCustomer;
+    }
+
     private double initHeight = 700;
 
     public void start(Stage dialogStage){
@@ -30,7 +39,7 @@ public class CustomerMenu {
         leftPane.prefHeightProperty().bind(root.heightProperty());
 
         //text in middle of element which displays the new customer id
-        Label customerIdLabel = new Label("Insert customer:\n#" + newCustomer.id);
+        Label customerIdLabel = new Label("Insert customer:\n#" + newCustomer.getId());
         leftPane.setCenter(customerIdLabel);
 
         //wrapper pane for better display
@@ -136,14 +145,14 @@ public class CustomerMenu {
             else{
                 if(Pattern.matches("[0-9]+", phoneField.getText()) && phoneField.getText().length() >= 10
                 && phoneField.getText().length() <= 15){
-                    newCustomer.name = nameField.getText();
-                    newCustomer.country = countryField.getText();
-                    newCustomer.phoneNumber = phoneField.getText();
+                    newCustomer.setName(nameField.getText());
+                    newCustomer.setCountry(countryField.getText());
+                    newCustomer.setPhoneNumber(phoneField.getText());
                     Main.mainController.personArrayList.add(newCustomer);
                     Label informationLabel = new Label(LocalDate.now().toString() +
-                            ": added the customer #" + newCustomer.id);
+                            ": added the customer #" + newCustomer.getId());
                     informationLabel.setId("activity-log-content");
-                    Main.mainController.activityMenu.content.getChildren().add(informationLabel);
+                    Main.mainController.activityMenu.getContent().getChildren().add(informationLabel);
                     dialogStage.close();
                 }
                 else{

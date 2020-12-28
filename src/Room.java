@@ -1,11 +1,49 @@
 public class Room {
-    //TODO maybe refactor to switch to private
+    private int id;
+    private static int overallId = 0;
+    private int floor;
+    private int number;
+    private int price;
 
-    public int id;
-    public static int overallId = 0;
-    public int floor;
-    public int number;
-    public int price;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public static int getOverallId() {
+        return overallId;
+    }
+
+    public static void setOverallId(int overallId) {
+        Room.overallId = overallId;
+    }
+
+    public int getFloor() {
+        return floor;
+    }
+
+    public void setFloor(int floor) {
+        this.floor = floor;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
 
     Room(int id, int floor, int number, int price){
         ++overallId;

@@ -82,7 +82,7 @@ public class LoginForm {
         btnLogin.setLayoutX(primaryStage.getMaxWidth() - 20);
         EventHandler<ActionEvent> buttonClick = e -> {
             for(var user : Main.mainController.receptionistArrayList)
-                if(Integer.parseInt(userField.getText()) == user.id && passwordField.getText().equals(user.password))
+                if(Integer.parseInt(userField.getText()) == user.getId() && passwordField.getText().equals(user.getPassword()))
                     Main.mainController.activeReceptionist = user;
 
             if(Main.mainController.activeReceptionist != null) {

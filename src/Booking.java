@@ -1,14 +1,69 @@
 import java.time.LocalDate;
 
 public class Booking {
+    private int id;
+    private static int overallId = 0;
+    private Room bookedRoom;
+    private Receptionist bookingReceptionist;
+    private Person bookingPerson;
+    private LocalDate bookingStart;
+    private LocalDate bookingEnd;
 
-    int id;
-    static int overallId = 0;
-    Room bookedRoom;
-    Receptionist bookingReceptionist;
-    Person bookingPerson;
-    LocalDate bookingStart;
-    LocalDate bookingEnd;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public static int getOverallId() {
+        return overallId;
+    }
+
+    public static void setOverallId(int overallId) {
+        Booking.overallId = overallId;
+    }
+
+    public Room getBookedRoom() {
+        return bookedRoom;
+    }
+
+    public void setBookedRoom(Room bookedRoom) {
+        this.bookedRoom = bookedRoom;
+    }
+
+    public Receptionist getBookingReceptionist() {
+        return bookingReceptionist;
+    }
+
+    public void setBookingReceptionist(Receptionist bookingReceptionist) {
+        this.bookingReceptionist = bookingReceptionist;
+    }
+
+    public Person getBookingPerson() {
+        return bookingPerson;
+    }
+
+    public void setBookingPerson(Person bookingPerson) {
+        this.bookingPerson = bookingPerson;
+    }
+
+    public LocalDate getBookingStart() {
+        return bookingStart;
+    }
+
+    public void setBookingStart(LocalDate bookingStart) {
+        this.bookingStart = bookingStart;
+    }
+
+    public LocalDate getBookingEnd() {
+        return bookingEnd;
+    }
+
+    public void setBookingEnd(LocalDate bookingEnd) {
+        this.bookingEnd = bookingEnd;
+    }
 
     public Booking(int id, int room, int receptionist, int person, LocalDate bookingStart, LocalDate bookingEnd){
         ++overallId;

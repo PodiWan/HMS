@@ -119,8 +119,8 @@ public class MainForm {
         Insets mainViewInsets = new Insets(10);
         mainView.setStyle("-fx-background-color: #FCFCFC");
 
-        Main.mainController.sideMenu.content.prefWidthProperty().bind(primaryStage.widthProperty().multiply(0.20));
-        Main.mainController.sideMenu.content.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        Main.mainController.sideMenu.getContent().prefWidthProperty().bind(primaryStage.widthProperty().multiply(0.20));
+        Main.mainController.sideMenu.getContent().setPrefHeight(Region.USE_COMPUTED_SIZE);
         mainView.setLeft(Main.mainController.sideMenu);
 
         BorderPane.setMargin(Main.mainController.sideMenu, mainViewInsets);
@@ -141,7 +141,7 @@ public class MainForm {
         btnAddBooking.setOnAction(e -> {
             BookingMenu bm = new BookingMenu();
             Stage dialogStage = new Stage();
-            bm.start(Main.mainController.sideMenu.itemList, dialogStage);
+            bm.start(Main.mainController.sideMenu.getItemList(), dialogStage);
             hm.updateMap();
         });
 
@@ -156,14 +156,14 @@ public class MainForm {
         Collections.swap(workingCollection, 0, 1);
         Main.mainController.sideMenu.getChildren().setAll(workingCollection);
 
-        for(int i = 0; i < Main.mainController.sideMenu.itemList.size(); ++i) {
-            Main.mainController.sideMenu.itemList.get(i).prefWidthProperty()
-                    .bind(Main.mainController.sideMenu.content.widthProperty());
-            Main.mainController.sideMenu.content.getChildren().add(Main.mainController.sideMenu.itemList.get(i));
+        for(int i = 0; i < Main.mainController.sideMenu.getItemList().size(); ++i) {
+            Main.mainController.sideMenu.getItemList().get(i).prefWidthProperty()
+                    .bind(Main.mainController.sideMenu.getContent().widthProperty());
+            Main.mainController.sideMenu.getContent().getChildren().add(Main.mainController.sideMenu.getItemList().get(i));
         }
 
         hm = new HotelMap();
-        hm.activeFloor = 0;
+        hm.setActiveFloor(0);
         hm.getStyleClass().clear();
 
         GridPane bottomView = new GridPane();
@@ -197,8 +197,8 @@ public class MainForm {
         receptionistPane.prefWidthProperty().bind(bottomView.widthProperty());
         receptionistPane.prefHeightProperty().bind(bottomView.heightProperty());
 
-        String isAdmin = Main.mainController.activeReceptionist.isAdmin ? " " : " not ";
-        Label receptionistPaneCenter = new Label("Hello, " + Main.mainController.activeReceptionist.name +
+        String isAdmin = Main.mainController.activeReceptionist.isAdmin() ? " " : " not ";
+        Label receptionistPaneCenter = new Label("Hello, " + Main.mainController.activeReceptionist.getName() +
                 ", you are" + isAdmin + "an admin. Good luck on your shift and stay positive!");
         receptionistPaneCenter.setWrapText(true);
         receptionistPaneCenter.setStyle("-fx-font-size: 2.5em; -fx-padding: 0 1.5em;");

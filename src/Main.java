@@ -113,7 +113,7 @@ public class Main extends Application {
         mainController.activeReceptionist = null;
 
         for(var booking : mainController.bookingArrayList)
-            mainController.sideMenu.itemList.add(new BookingItem(booking));
+            mainController.sideMenu.getItemList().add(new BookingItem(booking));
 
         LoginForm loginForm = new LoginForm();
         loginForm.start(primaryStage);

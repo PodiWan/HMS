@@ -17,25 +17,33 @@ public class BookingMenu {
     ComboBox<String> roomComboBox = new ComboBox<>();
     ComboBox<String> personComboBox = new ComboBox<>();
 
-    Booking newBooking;
+    private Booking newBooking;
+
+    public Booking getNewBooking() {
+        return newBooking;
+    }
+
+    public void setNewBooking(Booking newBooking) {
+        this.newBooking = newBooking;
+    }
 
     BookingMenu(){
         //fill the combobox options with the rooms
         for (var iterator : Main.mainController.roomArrayList) {
             boolean booked = false;
             for(var booking : Main.mainController.bookingArrayList) {
-                if (booking.bookedRoom.id == iterator.id) {
+                if (booking.getBookedRoom().getId() == iterator.getId()) {
                     booked = true;
                     break;
                 }
             }
             if(!booked)
-                roomComboBox.getItems().add(iterator.id + ". " + iterator.floor + "-" +iterator.number);
+                roomComboBox.getItems().add(iterator.getId() + ". " + iterator.getFloor() + "-" +iterator.getNumber());
         }
 
         //fill the combobox options with the people staying at the hotel
         for (var iterator : Main.mainController.personArrayList) {
-            personComboBox.getItems().add(iterator.id + ". " + iterator.name);
+            personComboBox.getItems().add(iterator.getId() + ". " + iterator.getName());
         }
     }
 
@@ -58,7 +66,7 @@ public class BookingMenu {
         leftPane.prefHeightProperty().bind(root.heightProperty());
 
         //text in middle of element which displays the new customer id
-        Label bookingIdLabel = new Label("Insert booking:\n#" + newBooking.id);
+        Label bookingIdLabel = new Label("Insert booking:\n#" + newBooking.getId());
         leftPane.setCenter(bookingIdLabel);
 
         //wrapper pane for better display
@@ -87,8 +95,8 @@ public class BookingMenu {
         HolderPane roomHolderPane = new HolderPane(roomLabel, roomComboBox, false);
 
         Label receptionistLabel = new Label("Receptionist");
-        Label receptionistIdLabel = new Label(Main.mainController.activeReceptionist.id + ". " +
-                Main.mainController.activeReceptionist.name);
+        Label receptionistIdLabel = new Label(Main.mainController.activeReceptionist.getId() + ". " +
+                Main.mainController.activeReceptionist.getName());
 
         HolderPane receptionistHolderPane = new HolderPane(receptionistLabel, receptionistIdLabel, false);
 
@@ -192,7 +200,7 @@ public class BookingMenu {
             }
             else{
                 Booking newBooking = new Booking(Integer.parseInt(roomComboBox.getValue().split(Pattern.quote("."))[0]),
-                        Main.mainController.activeReceptionist.id,
+                        Main.mainController.activeReceptionist.getId(),
                         Integer.parseInt(personComboBox.getValue().split(Pattern.quote("."))[0]),
                         startDate.getValue(), endDate.getValue());
 
@@ -200,13 +208,13 @@ public class BookingMenu {
                 Main.mainController.bookingArrayList.add(newBooking);
                 //add the new booking to the side menu
                 bookingItems.add(new BookingItem(newBooking));
-                Main.mainController.sideMenu.content.getChildren()
-                        .add(Main.mainController.sideMenu.itemList
-                                .get(Main.mainController.sideMenu.itemList.size() - 1));
+                Main.mainController.sideMenu.getContent().getChildren()
+                        .add(Main.mainController.sideMenu.getItemList()
+                                .get(Main.mainController.sideMenu.getItemList().size() - 1));
                 Label informationLabel = new Label(LocalDate.now().toString() +
-                        ": registered booking #" + newBooking.id);
+                        ": registered booking #" + newBooking.getId());
                 informationLabel.setId("activity-log-content");
-                Main.mainController.activityMenu.content.getChildren().add(informationLabel);
+                Main.mainController.activityMenu.getContent().getChildren().add(informationLabel);
                 dialogStage.close();
             }
         });

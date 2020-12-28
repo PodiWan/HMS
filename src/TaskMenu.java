@@ -24,7 +24,7 @@ public class TaskMenu {
         leftPane.prefHeightProperty().bind(root.heightProperty());
 
         //text in middle of element which displays the new customer id
-        Label taskIdLabel = new Label("Insert task:\n#" + (Main.mainController.taskMenu.content.getChildren().size() + 1));
+        Label taskIdLabel = new Label("Insert task:\n#" + (Main.mainController.taskMenu.getContent().getChildren().size() + 1));
         leftPane.setCenter(taskIdLabel);
 
         //wrapper pane for better display
@@ -82,10 +82,10 @@ public class TaskMenu {
                 errorHolderPane.setVisible(true);
             }
             else{
-                Task newTask = new Task(Main.mainController.taskMenu.content.getChildren().size() + 1,
+                Task newTask = new Task(Main.mainController.taskMenu.getContent().getChildren().size() + 1,
                         taskField.getText());
                 Main.mainController.taskArrayList.add(newTask);
-                Main.mainController.taskMenu.content.getChildren().add(new TaskItem(newTask));
+                Main.mainController.taskMenu.getContent().getChildren().add(new TaskItem(newTask));
                 dialogStage.close();
             }
         });

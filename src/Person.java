@@ -1,11 +1,67 @@
 public class Person {
-    public String name;
-    public int id;
-    public String country;
-    public String phoneNumber;
-    public String NID;
-    public String email;
-    public static int overallId = 0;
+    private String name;
+    private int id;
+    private String country;
+    private String phoneNumber;
+    private String NID;
+    private String email;
+    private static int overallId = 0;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getNID() {
+        return NID;
+    }
+
+    public void setNID(String NID) {
+        this.NID = NID;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public static int getOverallId() {
+        return overallId;
+    }
+
+    public static void setOverallId(int overallId) {
+        Person.overallId = overallId;
+    }
 
     public Person(int id, String name, String country, String phoneNumber, String NID, String email){
         ++overallId;
