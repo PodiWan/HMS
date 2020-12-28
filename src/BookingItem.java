@@ -37,6 +37,7 @@ public class BookingItem extends BorderPane {
                     Main.mainController.activityMenu.content.getChildren().add(informationLabel);
                     Main.mainController.bookingArrayList.remove(i);
                     Main.mainController.sideMenu.content.getChildren().remove(i);
+                    MainForm.hm.updateMap();
                 }
             }
         });
@@ -50,6 +51,7 @@ public class BookingItem extends BorderPane {
                     Main.mainController.activityMenu.content.getChildren().add(informationLabel);
                     Main.mainController.bookingArrayList.remove(i);
                     Main.mainController.sideMenu.content.getChildren().remove(i);
+                    MainForm.hm.updateMap();
                 }
             }
         });

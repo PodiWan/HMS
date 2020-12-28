@@ -105,13 +105,12 @@ public class HotelMap extends BorderPane {
         Label endDateLabel = new Label("End date: " + highlightRoom.currentBooking.bookingEnd.toString());
         HolderPane hp = new HolderPane(startDateLabel, endDateLabel, false);
         HolderPane mainHp = new HolderPane(personLabel, hp, false);
-        mainHp.setPadding(new Insets(10, 5, 10, 0 ));
+
+        mainHp.getStyleClass().add("holder-pane");
 
         highlightRoom.setRight(mainHp);
         RoomTile finalHighlightRoom = highlightRoom;
-        highlightRoom.focusedProperty().addListener((obs, oldVal, newVal) -> {
-            finalHighlightRoom.getChildren().remove(mainHp);
-        });
+        highlightRoom.focusedProperty().addListener((obs, oldVal, newVal) -> finalHighlightRoom.getChildren().remove(mainHp));
     }
 
     HotelMap(){

@@ -1,5 +1,3 @@
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -33,15 +31,12 @@ public class ActivitiesController extends VBox {
             tm.start(dialogStage);
         });
 
-        btnExit.setOnAction(e -> {
-            primaryStage.close();
-        });
+        btnExit.setOnAction(e -> primaryStage.close());
 
         this.getChildren().add(btnAddPerson);
         this.getChildren().add(btnTasks);
         this.getChildren().add(btnExit);
 
-        DoubleProperty fontSize = new SimpleDoubleProperty(10);
         for (var node : this.getChildren()) {
             if(node instanceof Button){
                 ((Button) node).prefHeightProperty().bind(this.heightProperty().divide(3));
@@ -49,5 +44,7 @@ public class ActivitiesController extends VBox {
                 node.setStyle("-fx-font-size: 2em");
             }
         }
+
+        this.setId("activities-controller");
     }
 }

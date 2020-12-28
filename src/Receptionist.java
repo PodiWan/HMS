@@ -15,9 +15,9 @@ public class Receptionist {
         this.password = password;
     }
 
-    Receptionist(boolean isAdmin, String name, String password){ this(++overallId, isAdmin, name, password); }
+    Receptionist(boolean isAdmin, String name, String password){ this(overallId, isAdmin, name, password); }
 
     Receptionist(){
-        this(++overallId, false, null, null);
+        this(overallId, false, null, null);
     }
 }

@@ -18,6 +18,8 @@
 }
 
 .button{
+    -fx-font-size: 1.5em;
+    -fx-font-weight: 500;
     -fx-border-width: 0;
     -fx-border-radius: 0px;
     -fx-background-radius: 0px;
@@ -54,4 +56,13 @@
 
 .error-label{
     -fx-text-fill: #E3170A;
+}
+
+#login-title{
+    -fx-font-size: 2.5em;
+}
+
+.login .label,
+.login .text-field{
+    -fx-font-size: 1.5em;
 }

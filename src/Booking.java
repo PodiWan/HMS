@@ -21,14 +21,14 @@ public class Booking {
     }
 
     public Booking(int room, int receptionist, int person, LocalDate bookingStart, LocalDate bookingEnd) {
-        this(++overallId, room, receptionist, person, bookingStart, bookingEnd);
+        this(overallId, room, receptionist, person, bookingStart, bookingEnd);
     }
 
     public Booking(int room, int receptionist, int person) {
-        this(++overallId, room, receptionist, person, null, null);
+        this(overallId, room, receptionist, person, null, null);
     }
 
     public Booking(){
-        this(++overallId, 1, 0, 1, null, null);
+        this(overallId, 1, 0, 1, null, null);
     }
 }

@@ -1,8 +1,3 @@
-import javafx.beans.InvalidationListener;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -146,7 +141,7 @@ public class MainForm {
         btnAddBooking.setOnAction(e -> {
             BookingMenu bm = new BookingMenu();
             Stage dialogStage = new Stage();
-            bm.start(Main.mainController.sideMenu.bookingItemList, dialogStage);
+            bm.start(Main.mainController.sideMenu.itemList, dialogStage);
             hm.updateMap();
         });
 
@@ -161,10 +156,10 @@ public class MainForm {
         Collections.swap(workingCollection, 0, 1);
         Main.mainController.sideMenu.getChildren().setAll(workingCollection);
 
-        for(int i = 0; i < Main.mainController.sideMenu.bookingItemList.size(); ++i) {
-            Main.mainController.sideMenu.bookingItemList.get(i).prefWidthProperty()
+        for(int i = 0; i < Main.mainController.sideMenu.itemList.size(); ++i) {
+            Main.mainController.sideMenu.itemList.get(i).prefWidthProperty()
                     .bind(Main.mainController.sideMenu.content.widthProperty());
-            Main.mainController.sideMenu.content.getChildren().add(Main.mainController.sideMenu.bookingItemList.get(i));
+            Main.mainController.sideMenu.content.getChildren().add(Main.mainController.sideMenu.itemList.get(i));
         }
 
         hm = new HotelMap();

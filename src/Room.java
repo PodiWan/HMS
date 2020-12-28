@@ -16,7 +16,7 @@ public class Room {
     }
 
     Room(int floor, int number, int price){
-        this(++overallId, floor, number, price);
+        this(overallId, floor, number, price);
     }
 
     Room(int id){
@@ -24,6 +24,6 @@ public class Room {
     }
 
     Room(){
-        this(++overallId,0, 0, 0);
+        this(overallId,0, 0, 0);
     }
 }

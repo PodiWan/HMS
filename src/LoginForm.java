@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -30,7 +31,7 @@ public class LoginForm {
         root.setVgap(10);
 
         Scene s = new Scene(root, 500, 300);
-        s.getStylesheets().add("css/main.css");
+        s.getStylesheets().add("css/dialog.css");
         primaryStage.setScene(s);
 
         double rectWidth = s.getWidth() / 4;
@@ -62,25 +63,25 @@ public class LoginForm {
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
+        grid.getStyleClass().add("login");
 
         Text loginText = new Text("Welcome to HMS");
         loginText.setId("login-title");
         grid.add(loginText, 0, 0, 2, 1);
 
-        Text userText = new Text("User id: ");
+        Label userText = new Label("User id: ");
         grid.add(userText, 0, 1);
         TextField userField = new TextField();
         grid.add(userField, 1, 1);
 
-        Text passwordText = new Text("Password: ");
+        Label passwordText = new Label("Password: ");
         grid.add(passwordText, 0, 2);
         PasswordField passwordField = new PasswordField();
         grid.add(passwordField, 1, 2);
 
-        Button button = new Button("Login");
-        button.setLayoutX(primaryStage.getMaxWidth() - 20);
+        Button btnLogin = new Button("Login");
+        btnLogin.setLayoutX(primaryStage.getMaxWidth() - 20);
         EventHandler<ActionEvent> buttonClick = e -> {
-
             for(var user : Main.mainController.receptionistArrayList)
                 if(Integer.parseInt(userField.getText()) == user.id && passwordField.getText().equals(user.password))
                     Main.mainController.activeReceptionist = user;
@@ -95,19 +96,16 @@ public class LoginForm {
                 }
             }
         };
-        button.setOnAction(buttonClick);
+        btnLogin.setOnAction(buttonClick);
 
         Button btnClose = new Button("Cancel");
-        btnClose.setOnAction(e -> {
-            primaryStage.close();
-        });
+        btnClose.setOnAction(e -> primaryStage.close());
 
-        HolderPane buttonHolder = new HolderPane(btnClose, button, true);
+        HolderPane buttonHolder = new HolderPane(btnClose, btnLogin, true);
+        buttonHolder.setPadding(new Insets(30, 0, 0, 0));
 
         grid.add(buttonHolder, 1, 3);
-
         root.add(grid, 1, 0);
-
         primaryStage.show();
     }
 }

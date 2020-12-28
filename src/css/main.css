@@ -35,11 +35,32 @@
     -fx-border-color: -fx-blue;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
+    -fx-border-width: 2.5;
 }
 
 .side-menu .header{
     -fx-font-size: 2.5em;
     -fx-padding: 0.5em 1em;
+}
+
+#booking-item{
+    -fx-font-size: 1.75em;
+    -fx-background-color: -fx-white;
+    -fx-border-style: hidden none solid none;
+    -fx-border-color: #E0E0E0;
+    -fx-border-insets: 5 10;
+}
+
+#booking-item:hover{
+    -fx-background-color: -fx-white-mint;
+}
+
+#booking-item:focused{
+    -fx-background-color: -fx-blue-light;
+}
+
+#booking-item:selected{
+    -fx-background-color: -fx-blue-light;
 }
 
 #activity-log-content{
@@ -52,6 +73,10 @@
     -fx-font-size: 2em;
     -fx-font-weight: 500;
     -fx-padding: 0em 1em;
+    -fx-background-color: -fx-white;
+    -fx-border-style: hidden none solid none;
+    -fx-border-color: #E0E0E0;
+    -fx-border-insets: 5 10;
 }
 
 #task-content:hover{
@@ -60,24 +85,26 @@
 
 #booking-item-header{
     -fx-font-weight: 900;
-    -fx-padding: 0em 1em;
+    -fx-padding: 0em 0.75em;
 }
 
 #booking-item-content{
     -fx-font-size: 0.7em;
-    -fx-padding: 0.5em 0.75em;
+    -fx-padding: 0.5em 1em;
     -fx-font-weight: 500;
 }
 
 #booking-controller{
     -fx-border-radius: 0 10 0 0;
     -fx-background-radius: 0 10 0 0;
+    -fx-border-width: 2.5;
 }
 
 #booking-controller-last-button{
     -fx-border-radius: 10;
     -fx-background-radius: 10;
     -fx-padding: 0.7em 1em;
+    -fx-border-width: 2.5;
 }
 
 #btn-close:hover{
@@ -85,17 +112,13 @@
     -fx-text-fill: -fx-white;
 }
 
-#login-title{
-    -fx-font-size: 3em;
-}
-
-#login-label{
-    -fx-font-size: 1.2em;
-}
-
 #hotel-map{
     -fx-font-size: 1.5em;
     -fx-background-color: -fx-white;
+}
+
+#hotel-map .button{
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.4, 0, 0);
 }
 
 #floor-counter{
@@ -110,6 +133,17 @@
 #room-tile{
     -fx-background-color: -fx-white;
     -fx-border-color: -fx-blue;
+    -fx-border-width: 2.5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0.5, 0, 0);
+}
+
+#room-tile .holder-pane{
+    -fx-padding: 7em 1em;
+}
+
+#room-tile .holder-pane .label{
+    -fx-text-fill: -fx-blue-dark;
+    -fx-font-weight: 500;
 }
 
 #room-tile:hover{
@@ -121,26 +155,6 @@
 }
 
 #room-tile:selected{
-    -fx-background-color: -fx-blue-light;
-}
-
-#booking-item{
-    -fx-font-size: 1.75em;
-    -fx-background-color: -fx-white;
-    -fx-border-style: hidden none solid none;
-    -fx-border-color: #E0E0E0;
-    -fx-border-insets: 0 10;
-}
-
-#booking-item:hover{
-    -fx-background-color: -fx-white-mint;
-}
-
-#booking-item:focused{
-    -fx-background-color: -fx-blue-light;
-}
-
-#booking-item:selected{
     -fx-background-color: -fx-blue-light;
 }
 
@@ -161,4 +175,8 @@
     -fx-font-weight: 900;
     -fx-font-size: 3em;
     -fx-text-fill: -fx-blue;
+}
+
+#activities-controller{
+    -fx-effect: innershadow(three-pass-box, rgba(0,0,0,0.3), 20, 0.5, 0, 0);
 }

@@ -28,6 +28,7 @@ public class Main extends Application {
         }
 
         //get the receptionists from the json add them to the receptionArrayList
+        assert jsonObject != null;
         JSONArray receptionistJSON = ((JSONArray)jsonObject.get("receptionist"));
         for(var receptionist : receptionistJSON){
             JSONObject receptionistObject = (JSONObject) receptionist;
@@ -46,6 +47,7 @@ public class Main extends Application {
         }
 
         //get the receptionists from the json add them to the receptionArrayList
+        assert jsonObject != null;
         JSONArray personJSON = ((JSONArray)jsonObject.get("person"));
         for(var person : personJSON){
             JSONObject personObject = (JSONObject) person;
@@ -65,6 +67,7 @@ public class Main extends Application {
         }
 
         //get the receptionists from the json add them to the receptionArrayList
+        assert jsonObject != null;
         JSONArray roomJSON = ((JSONArray)jsonObject.get("room"));
         for(var room : roomJSON){
             JSONObject roomObject = (JSONObject) room;
@@ -86,6 +89,7 @@ public class Main extends Application {
         }
 
         //get the receptionists from the json add them to the receptionArrayList
+        assert jsonObject != null;
         JSONArray bookingJSON = ((JSONArray)jsonObject.get("booking"));
         for(var booking : bookingJSON){
             JSONObject bookingObject = (JSONObject) booking;
@@ -109,7 +113,7 @@ public class Main extends Application {
         mainController.activeReceptionist = null;
 
         for(var booking : mainController.bookingArrayList)
-            mainController.sideMenu.bookingItemList.add(new BookingItem(booking));
+            mainController.sideMenu.itemList.add(new BookingItem(booking));
 
         LoginForm loginForm = new LoginForm();
         loginForm.start(primaryStage);

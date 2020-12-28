@@ -1,12 +1,14 @@
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
 public class SideMenu extends VBox {
-    ArrayList<BookingItem> bookingItemList;
+    ArrayList<Pane> itemList;
 
     VBox content;
 
@@ -23,7 +25,7 @@ public class SideMenu extends VBox {
         sp.setFitToWidth(true);
 
         this.setAlignment(Pos.TOP_LEFT);
-        bookingItemList = new ArrayList<>();
+        itemList = new ArrayList<>();
 
         this.setPadding(new Insets(0, 0, 5, 0));
 

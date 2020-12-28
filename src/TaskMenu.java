@@ -1,6 +1,7 @@
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -29,8 +30,8 @@ public class TaskMenu {
         leftPane.prefHeightProperty().bind(root.heightProperty());
 
         //text in middle of element which displays the new customer id
-        Label customerIdLabel = new Label("Insert task:\n#" + 1);
-        leftPane.setCenter(customerIdLabel);
+        Label taskIdLabel = new Label("Insert task:\n#" + (Main.mainController.taskMenu.content.getChildren().size() + 1));
+        leftPane.setCenter(taskIdLabel);
 
         //wrapper pane for better display
         BorderPane wrapperPane = new BorderPane();
@@ -64,9 +65,7 @@ public class TaskMenu {
         root.add(wrapperPane, 1, 0);
 
         Button btnClose = new Button("Cancel");
-        btnClose.setOnAction(e -> {
-            dialogStage.close();
-        });
+        btnClose.setOnAction(e -> dialogStage.close());
 
         Scene s = new Scene(root, 600, initHeight);
 
@@ -88,10 +87,10 @@ public class TaskMenu {
                 errorHolderPane.setVisible(true);
             }
             else{
-                Label taskComponent = new Label(taskField.getText());
-                taskComponent.setId("task-content");
-
-                Main.mainController.taskMenu.content.getChildren().add(taskComponent);
+                Task newTask = new Task(Main.mainController.taskMenu.content.getChildren().size() + 1,
+                        taskField.getText());
+                Main.mainController.taskArrayList.add(newTask);
+                Main.mainController.taskMenu.content.getChildren().add(new TaskItem(newTask));
                 dialogStage.close();
             }
         });

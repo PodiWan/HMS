@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 public class CustomerMenu {
 
     Person newCustomer;
-    private double initHeight = 500;
+    private double initHeight = 700;
 
     public void start(Stage dialogStage){
         newCustomer = new Person();
@@ -30,7 +30,7 @@ public class CustomerMenu {
         leftPane.prefHeightProperty().bind(root.heightProperty());
 
         //text in middle of element which displays the new customer id
-        Label customerIdLabel = new Label("Insert customer:\n#" + Integer.toString(newCustomer.id));
+        Label customerIdLabel = new Label("Insert customer:\n#" + newCustomer.id);
         leftPane.setCenter(customerIdLabel);
 
         //wrapper pane for better display
@@ -54,24 +54,38 @@ public class CustomerMenu {
         //fields
         Label nameLabel = new Label("Name");
         TextField nameField = new TextField();
-        nameField.setPromptText("Name");
+        nameField.setPromptText("e.g.: John Wick");
         nameField.prefWidthProperty().bind(detailsPane.widthProperty().multiply(0.95));
 
         HolderPane nameHolderPane = new HolderPane(nameLabel, nameField, false);
 
         Label countryLabel = new Label("Country");
         TextField countryField = new TextField();
-        countryField.setPromptText("Country");
+        countryField.setPromptText("e.g.: Hungary");
         countryField.prefWidthProperty().bind(detailsPane.widthProperty().multiply(0.95));
 
         HolderPane countryHolderPane = new HolderPane(countryLabel, countryField, false);
 
         Label phoneLabel = new Label("Phone number");
         TextField phoneField = new TextField();
-        phoneField.setPromptText("Phone number");
+        phoneField.setPromptText("e.g.: +40123456789");
         phoneField.prefWidthProperty().bind(detailsPane.widthProperty().multiply(0.95));
 
         HolderPane phoneHolderPane = new HolderPane(phoneLabel, phoneField, false);
+
+        Label nidLabel = new Label("NID");
+        TextField nidField = new TextField();
+        nidField.setPromptText("e.g.: 1800611016247");
+        nidField.prefWidthProperty().bind(detailsPane.widthProperty().multiply(0.95));
+
+        HolderPane nidHolderPane = new HolderPane(nidLabel, nidField, false);
+
+        Label emailLabel = new Label("Email");
+        TextField emailField = new TextField();
+        emailField.setPromptText("e.g.: example@domain.com");
+        emailField.prefWidthProperty().bind(detailsPane.widthProperty().multiply(0.95));
+
+        HolderPane emailHolderPane = new HolderPane(emailLabel, emailField, false);
 
         Label errorHeader = new Label("Error!");
         errorHeader.getStyleClass().add("error-label");
@@ -83,12 +97,12 @@ public class CustomerMenu {
         detailsPane.add(nameHolderPane, 0, 0);
         detailsPane.add(countryHolderPane, 0, 1);
         detailsPane.add(phoneHolderPane, 0, 2);
-        detailsPane.add(errorHolderPane, 0, 3);
+        detailsPane.add(nidHolderPane, 0, 3);
+        detailsPane.add(emailHolderPane, 0, 4);
+        detailsPane.add(errorHolderPane, 0, 5);
 
         Button btnClose = new Button("Cancel");
-        btnClose.setOnAction(e -> {
-            dialogStage.close();
-        });
+        btnClose.setOnAction(e -> dialogStage.close());
 
         Scene s = new Scene(root, 650, initHeight);
 
@@ -141,7 +155,7 @@ public class CustomerMenu {
 
         HolderPane buttonHolderPane = new HolderPane(btnClose, btnSubmit, true);
 
-        detailsPane.add(buttonHolderPane, 0, 5);
+        detailsPane.add(buttonHolderPane, 0, 7);
 
         root.add(leftPane, 0, 0);
         root.add(wrapperPane, 1, 0);

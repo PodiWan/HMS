@@ -4,14 +4,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.TextAlignment;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.regex.Pattern;
 
 public class BookingMenu {
@@ -43,7 +41,7 @@ public class BookingMenu {
 
     private double initHeight = 670.0;
 
-    public void start(ArrayList<BookingItem> bookingItems, Stage dialogStage){
+    public void start(ArrayList<Pane> bookingItems, Stage dialogStage){
         newBooking = new Booking();
 
         GridPane root = new GridPane();
@@ -60,7 +58,7 @@ public class BookingMenu {
         leftPane.prefHeightProperty().bind(root.heightProperty());
 
         //text in middle of element which displays the new customer id
-        Label bookingIdLabel = new Label("Insert booking:\n#" + Integer.toString(newBooking.id));
+        Label bookingIdLabel = new Label("Insert booking:\n#" + newBooking.id);
         leftPane.setCenter(bookingIdLabel);
 
         //wrapper pane for better display
@@ -106,7 +104,7 @@ public class BookingMenu {
 
         HolderPane startDateHolderPane = new HolderPane(startDateLabel, startDate, false);
 
-        Label endDateLabel = new Label("Start date");
+        Label endDateLabel = new Label("End date");
         DatePicker endDate = new DatePicker();
         endDate.prefWidthProperty().bind(detailsPane.widthProperty().multiply(0.95));
 
@@ -153,9 +151,7 @@ public class BookingMenu {
         });
 
         Button btnClose = new Button("Cancel");
-        btnClose.setOnAction(e -> {
-            dialogStage.close();
-        });
+        btnClose.setOnAction(e -> dialogStage.close());
 
         Button btnSubmit = new Button("Submit");
 
@@ -205,8 +201,8 @@ public class BookingMenu {
                 //add the new booking to the side menu
                 bookingItems.add(new BookingItem(newBooking));
                 Main.mainController.sideMenu.content.getChildren()
-                        .add(Main.mainController.sideMenu.bookingItemList
-                                .get(Main.mainController.sideMenu.bookingItemList.size() - 1));
+                        .add(Main.mainController.sideMenu.itemList
+                                .get(Main.mainController.sideMenu.itemList.size() - 1));
                 Label informationLabel = new Label(LocalDate.now().toString() +
                         ": registered booking #" + newBooking.id);
                 informationLabel.setId("activity-log-content");
@@ -214,7 +210,6 @@ public class BookingMenu {
                 dialogStage.close();
             }
         });
-
         detailsPane.add(buttonHolderPane, 0, 7);
 
         root.add(leftPane, 0, 0);
