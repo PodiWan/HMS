@@ -1,19 +1,13 @@
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.time.LocalDate;
-import java.util.regex.Pattern;
-
 public class TaskMenu {
-
-    private double initHeight = 570;
 
     public void start(Stage dialogStage){
         GridPane root = new GridPane();
@@ -67,6 +61,7 @@ public class TaskMenu {
         Button btnClose = new Button("Cancel");
         btnClose.setOnAction(e -> dialogStage.close());
 
+        double initHeight = 570;
         Scene s = new Scene(root, 600, initHeight);
 
         Label errorHeader = new Label("Error!");

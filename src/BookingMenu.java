@@ -39,7 +39,7 @@ public class BookingMenu {
         }
     }
 
-    private double initHeight = 670.0;
+    private final double initHeight = 670.0;
 
     public void start(ArrayList<Pane> bookingItems, Stage dialogStage){
         newBooking = new Booking();
