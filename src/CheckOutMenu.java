@@ -72,7 +72,7 @@ public class CheckOutMenu {
         TextField additionalCostsField = new TextField();
         additionalCostsField.setPromptText("e.g.: 10");
         additionalCostsField.textProperty().addListener((obs, oldValue, newValue) -> {
-            if(!additionalCostsField.getText().isEmpty()) {
+            if(!additionalCostsField.getText().isEmpty() && additionalCostsField.getText().equals("-")) {
                 if (Integer.parseInt(additionalCostsField.getText()) >= 0)
                     computedPriceLabel.setText(Integer.toString(computedPrice +
                             Integer.parseInt(additionalCostsField.getText())));
