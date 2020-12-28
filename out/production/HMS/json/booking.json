@@ -1,0 +1,36 @@
+{
+  "booking": [
+    {
+      "id": "1",
+      "room": "1",
+      "receptionist": "1",
+      "person": "1",
+      "start-date": "2020-12-27",
+      "end-date": "2020-12-28"
+    },
+    {
+      "id": "2",
+      "room": "2",
+      "receptionist": "1",
+      "person": "2",
+      "start-date": "2020-12-27",
+      "end-date": "2020-12-28"
+    },
+    {
+      "id": "3",
+      "room": "13",
+      "receptionist": "2",
+      "person": "4",
+      "start-date": "2020-12-27",
+      "end-date": "2020-12-28"
+    },
+    {
+      "id": "4",
+      "room": "25",
+      "receptionist": "5",
+      "person": "4",
+      "start-date": "2020-12-27",
+      "end-date": "2020-12-28"
+    }
+  ]
+}

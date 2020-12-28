@@ -1,0 +1,166 @@
+{
+  "room": [
+    {
+      "id": "1",
+      "floor": "0",
+      "number": "1",
+      "price": "100"
+    },
+    {
+      "id": "2",
+      "floor": "0",
+      "number": "2",
+      "price": "100"
+    },
+    {
+      "id": "3",
+      "floor": "0",
+      "number": "3",
+      "price": "100"
+    },
+    {
+      "id": "4",
+      "floor": "0",
+      "number": "4",
+      "price": "100"
+    },
+    {
+      "id": "5",
+      "floor": "0",
+      "number": "5",
+      "price": "100"
+    },
+    {
+      "id": "6",
+      "floor": "0",
+      "number": "6",
+      "price": "100"
+    },
+    {
+      "id": "7",
+      "floor": "0",
+      "number": "7",
+      "price": "100"
+    },
+    {
+      "id": "8",
+      "floor": "0",
+      "number": "8",
+      "price": "100"
+    },
+    {
+      "id": "9",
+      "floor": "1",
+      "number": "10",
+      "price": "100"
+    },
+    {
+      "id": "10",
+      "floor": "1",
+      "number": "11",
+      "price": "100"
+    },
+    {
+      "id": "11",
+      "floor": "1",
+      "number": "12",
+      "price": "100"
+    },
+    {
+      "id": "12",
+      "floor": "1",
+      "number": "13",
+      "price": "100"
+    },
+    {
+      "id": "13",
+      "floor": "1",
+      "number": "14",
+      "price": "100"
+    },
+    {
+      "id": "14",
+      "floor": "1",
+      "number": "15",
+      "price": "100"
+    },
+    {
+      "id": "15",
+      "floor": "1",
+      "number": "16",
+      "price": "100"
+    },
+    {
+      "id": "16",
+      "floor": "1",
+      "number": "17",
+      "price": "100"
+    },
+    {
+      "id": "17",
+      "floor": "1",
+      "number": "18",
+      "price": "100"
+    },
+    {
+      "id": "18",
+      "floor": "2",
+      "number": "20",
+      "price": "500"
+    },
+    {
+      "id": "19",
+      "floor": "2",
+      "number": "21",
+      "price": "500"
+    },
+    {
+      "id": "20",
+      "floor": "2",
+      "number": "22",
+      "price": "500"
+    },
+    {
+      "id": "21",
+      "floor": "2",
+      "number": "23",
+      "price": "500"
+    },
+    {
+      "id": "22",
+      "floor": "2",
+      "number": "24",
+      "price": "500"
+    },
+    {
+      "id": "23",
+      "floor": "2",
+      "number": "25",
+      "price": "500"
+    },
+    {
+      "id": "24",
+      "floor": "2",
+      "number": "26",
+      "price": "500"
+    },
+    {
+      "id": "25",
+      "floor": "2",
+      "number": "27",
+      "price": "500"
+    },
+    {
+      "id": "26",
+      "floor": "2",
+      "number": "28",
+      "price": "500"
+    },
+    {
+      "id": "27",
+      "floor": "3",
+      "number": "30",
+      "price": "1000"
+    }
+  ]
+}
