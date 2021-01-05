@@ -1,7 +1,6 @@
 public class Receptionist {
     private int id;
     private static int overallId;
-    private boolean isAdmin;
     private String name;
     private String password;
 
@@ -21,14 +20,6 @@ public class Receptionist {
         Receptionist.overallId = overallId;
     }
 
-    public boolean isAdmin() {
-        return isAdmin;
-    }
-
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
-    }
-
     public String getName() {
         return name;
     }
@@ -45,17 +36,16 @@ public class Receptionist {
         this.password = password;
     }
 
-    Receptionist(int id, boolean isAdmin, String name, String password){
+    Receptionist(int id, String name, String password){
         ++overallId;
         this.id = id;
-        this.isAdmin = isAdmin;
         this.name = name;
         this.password = password;
     }
 
-    Receptionist(boolean isAdmin, String name, String password){ this(overallId, isAdmin, name, password); }
+    Receptionist(boolean isAdmin, String name, String password){ this(overallId, name, password); }
 
     Receptionist(){
-        this(overallId, false, null, null);
+        this(overallId, null, null);
     }
 }

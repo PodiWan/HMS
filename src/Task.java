@@ -1,6 +1,7 @@
 public class Task {
     private int id;
     private String text;
+    private Room assignedRoom;
 
     public int getId() {
         return id;
@@ -16,6 +17,14 @@ public class Task {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public Room getAssignedRoom() {
+        return assignedRoom;
+    }
+
+    public void setAssignedRoom(Room assignedRoom) {
+        this.assignedRoom = assignedRoom;
     }
 
     Task(int id, String text){

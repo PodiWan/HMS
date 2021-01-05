@@ -1,18 +1,17 @@
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
-import javafx.scene.control.Label;
 
 public class HotelMap extends BorderPane {
 
     static class RoomTile extends BorderPane {
-        private int roomId;
+        private Room room;
         private final Label roomNumberLabel;
         private Booking currentBooking;
 
-        public void setRoomId(int id){
-            this.roomId = id;
+        public void setRoom(Room room){
+            this.room = room;
         }
         public void setRoomNumber(int number){
             this.roomNumberLabel.setText(Integer.toString(number));
@@ -32,14 +31,35 @@ public class HotelMap extends BorderPane {
             this.prefWidthProperty().bind(parent.widthProperty().divide(4));
             this.setPrefHeight(250);
 
+            ContextMenu contextMenu = new ContextMenu();
+            MenuItem menuItemClean = new MenuItem("Clean");
+            menuItemClean.setOnAction(e -> {
+                this.room.setState(Room.State.CLEAN);
+            });
+            MenuItem menuItemToClean = new MenuItem("To Clean");
+            menuItemToClean.setOnAction(e -> {
+                this.room.setState(Room.State.TO_CLEAN);
+            });
+            MenuItem menuItemToUnderConstruction = new MenuItem("Under construction");
+            menuItemToUnderConstruction.setOnAction(e -> {
+                this.room.setState(Room.State.UNDER_CONSTRUCTION);
+            });
+
+            contextMenu.getItems().addAll(menuItemClean, menuItemToClean, menuItemToUnderConstruction);
+
             this.setId("room-tile");
             this.setOnMouseClicked(e -> {
-                if(!this.isFocused()) {
-                    if(this.currentBooking != null)
-                        parent.highlightRoom(this.currentBooking.getBookedRoom());
+
+                if(e.getButton() == MouseButton.PRIMARY) {
+                    if (!this.isFocused()) {
+                        if (this.currentBooking != null)
+                            parent.highlightRoom(this.currentBooking.getBookedRoom());
+                    } else
+                        parent.requestFocus();
                 }
-                else
-                    parent.requestFocus();
+                if(e.getButton() == MouseButton.SECONDARY){
+                    contextMenu.show(this, e.getScreenX(), e.getScreenY());
+                }
             });
 
             this.setCenter(this.roomNumberLabel);
@@ -109,15 +129,16 @@ public class HotelMap extends BorderPane {
             this.setPadding(new Insets(50, 50, 10, 50));
             if(Main.mainController.roomArrayList.get(i).getFloor() == activeFloor) {
                 RoomTile roomTile = new RoomTile(this);
-                roomTile.setRoomId(Main.mainController.roomArrayList.get(i).getId());
+                roomTile.setRoom(Main.mainController.roomArrayList.get(i));
                 roomTile.setRoomNumber(Main.mainController.roomArrayList.get(i).getNumber());
 
                 for(var booking : Main.mainController.bookingArrayList)
-                    if(booking.getBookedRoom().getId() == roomTile.roomId) {
+                    if(booking.getBookedRoom() == roomTile.room) {
                         roomTile.setCurrentBooking(booking);
                         roomTile.roomTooltip.setText("Booked by: " + roomTile.currentBooking.getBookingPerson().getName() +
                                 "\nStart date: " + roomTile.currentBooking.getBookingStart().toString() +
-                                "\nEnd date: " + roomTile.currentBooking.getBookingEnd().toString());
+                                "\nEnd date: " + roomTile.currentBooking.getBookingEnd().toString() +
+                                "\nRoom state: " + roomTile.room.getStateString());
                     }
 
                 if(roomsOnActiveFloor < 4)
@@ -132,7 +153,7 @@ public class HotelMap extends BorderPane {
         RoomTile highlightRoom = null;
 
         for(var node : this.rooms.getChildren())
-            if(node instanceof RoomTile && ((RoomTile) node).roomId == selectedRoom.getId())
+            if(node instanceof RoomTile && ((RoomTile) node).room.getId() == selectedRoom.getId())
                 highlightRoom = ((RoomTile) node);
         assert highlightRoom != null;
         highlightRoom.requestFocus();
@@ -140,8 +161,10 @@ public class HotelMap extends BorderPane {
         Label personLabel = new Label("Booked by: " + highlightRoom.currentBooking.getBookingPerson().getName());
         Label startDateLabel = new Label("Start date: " + highlightRoom.currentBooking.getBookingStart().toString());
         Label endDateLabel = new Label("End date: " + highlightRoom.currentBooking.getBookingEnd().toString());
-        HolderPane hp = new HolderPane(startDateLabel, endDateLabel, false);
-        HolderPane mainHp = new HolderPane(personLabel, hp, false);
+        Label stateLabel = new Label("Room state: " + highlightRoom.currentBooking.getBookedRoom().getStateString());
+        HolderPane firstHolder = new HolderPane(personLabel, startDateLabel, false);
+        HolderPane secondHolder = new HolderPane(endDateLabel, stateLabel, false);
+        HolderPane mainHp = new HolderPane(firstHolder, secondHolder, false);
 
         mainHp.getStyleClass().add("holder-pane");
 

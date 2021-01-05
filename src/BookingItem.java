@@ -54,7 +54,7 @@ public class BookingItem extends BorderPane {
         MenuItem menuItemCheckOut = new MenuItem("Check-out");
         menuItemCheckOut.setOnAction(actionEvent -> {
             for (int i = 0; i < Main.mainController.bookingArrayList.size(); ++i) {
-                if(Main.mainController.bookingArrayList.get(i).getId() == this.heldBooking.getId()) {
+                if(Main.mainController.bookingArrayList.get(i) == this.heldBooking) {
                     Stage dialogStage = new Stage();
                     CheckOutMenu com = new CheckOutMenu();
                     com.setCheckOutBooking(Main.mainController.bookingArrayList.get(i));
@@ -63,7 +63,7 @@ public class BookingItem extends BorderPane {
                                 ": checked-out booking #" + Main.mainController.bookingArrayList.get(i).getId());
                         informationLabel.setId("activity-log-content");
                         Main.mainController.activityMenu.getContent().getChildren().add(informationLabel);
-                        Main.mainController.bookingArrayList.remove(i);
+                        Main.mainController.bookingArrayList.remove(this.heldBooking);
                         Main.mainController.sideMenu.getContent().getChildren().remove(i);
                         Main.writeBookings();
                         MainForm.hm.updateMap();
@@ -71,10 +71,7 @@ public class BookingItem extends BorderPane {
                 }
             }
         });
-        if(!Main.mainController.activeReceptionist.isAdmin())
-            contextMenu.getItems().addAll(menuItemDelete, menuItemCheckOut);
-        else
-            contextMenu.getItems().add(menuItemCheckOut);
+        contextMenu.getItems().addAll(menuItemDelete, menuItemCheckOut);
         this.setOnMouseClicked(mouseEvent -> {
             //when left-clicked
             if(mouseEvent.getButton() == MouseButton.PRIMARY) {
@@ -85,8 +82,10 @@ public class BookingItem extends BorderPane {
                 }
                 MainForm.hm.highlightRoom(this.heldBooking.getBookedRoom());
             }
-            if(mouseEvent.getButton() == MouseButton.SECONDARY)
+            if(mouseEvent.getButton() == MouseButton.SECONDARY) {
                 contextMenu.show(this, mouseEvent.getScreenX(), mouseEvent.getScreenY());
+                MainForm.hm.updateMap();
+            }
         });
     }
 

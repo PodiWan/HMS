@@ -35,7 +35,6 @@ public class Main extends Application {
         for(var receptionist : receptionistJSON){
             JSONObject receptionistObject = (JSONObject) receptionist;
             mainController.receptionistArrayList.add(new Receptionist(Integer.parseInt(receptionistObject.get("id").toString()),
-                    (receptionistObject.get("isAdmin").equals("true")),
                     receptionistObject.get("name").toString(), receptionistObject.get("password").toString()));
         }
     }
@@ -75,10 +74,12 @@ public class Main extends Application {
             JSONObject roomObject = (JSONObject) room;
             if(Integer.parseInt(roomObject.get("floor").toString()) > Main.mainController.numberOfFloors)
                 Main.mainController.numberOfFloors = Integer.parseInt(roomObject.get("floor").toString());
-            mainController.roomArrayList.add(new Room(Integer.parseInt(roomObject.get("id").toString()),
+            Room activeRoom = new Room(Integer.parseInt(roomObject.get("id").toString()),
                     Integer.parseInt(roomObject.get("floor").toString()),
                     Integer.parseInt(roomObject.get("number").toString()),
-                    Integer.parseInt(roomObject.get("price").toString())));
+                    Integer.parseInt(roomObject.get("price").toString()));
+            activeRoom.setState(roomObject.get("state").toString());
+            mainController.roomArrayList.add(activeRoom);
         }
     }
 
@@ -129,7 +130,6 @@ public class Main extends Application {
             JSONObject receptionistDetails = new JSONObject();
             receptionistDetails.put("id", receptionist.getId());
             receptionistDetails.put("name", receptionist.getName());
-            receptionistDetails.put("isAdmin", receptionist.isAdmin());
             receptionistDetails.put("password", receptionist.getPassword());
 
             receptionists.add(receptionistDetails);

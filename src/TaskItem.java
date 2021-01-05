@@ -35,8 +35,11 @@ public class TaskItem extends Pane {
                             ": done task " + Main.mainController.taskArrayList.get(i).getText());
                     informationLabel.setId("activity-log-content");
                     Main.mainController.activityMenu.getContent().getChildren().add(informationLabel);
-                    Main.mainController.taskArrayList.remove(i);
+                    Main.mainController.taskArrayList.remove(this.heldTask);
                     Main.mainController.taskMenu.getContent().getChildren().remove(i);
+                    if(this.heldTask.getAssignedRoom() != null && this.heldTask.getAssignedRoom().getState() == Room.State.TO_CLEAN){
+                        this.heldTask.getAssignedRoom().setState(Room.State.CLEAN);
+                    }
                     Main.writeTasks();
                 }
         });

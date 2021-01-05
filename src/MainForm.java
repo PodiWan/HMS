@@ -200,9 +200,8 @@ public class MainForm {
         receptionistPane.prefWidthProperty().bind(bottomView.widthProperty());
         receptionistPane.prefHeightProperty().bind(bottomView.heightProperty());
 
-        String isAdmin = Main.mainController.activeReceptionist.isAdmin() ? " " : " not ";
         Label receptionistPaneCenter = new Label("Hello, " + Main.mainController.activeReceptionist.getName() +
-                ", you are" + isAdmin + "an admin. Good luck on your shift and stay positive!");
+                ". Good luck on your shift and stay positive!");
         receptionistPaneCenter.setWrapText(true);
         receptionistPaneCenter.setStyle("-fx-font-size: 2.5em; -fx-padding: 0 1.5em;");
         receptionistPane.setCenter(receptionistPaneCenter);
