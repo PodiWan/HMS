@@ -118,8 +118,13 @@ public class Main extends Application {
         JSONArray tasksJSON = ((JSONArray)jsonObject.get("task"));
         for(var booking : tasksJSON){
             JSONObject taskObject = (JSONObject) booking;
-            mainController.taskArrayList.add(new Task(Integer.parseInt(taskObject.get("id").toString()),
-                    taskObject.get("text").toString()));
+            Task newTask = new Task(Integer.parseInt(taskObject.get("id").toString()),
+                    taskObject.get("text").toString());
+            int id = Integer.parseInt(taskObject.get("room").toString());
+            for(var room : Main.mainController.roomArrayList)
+                if(room.getId() == id)
+                    newTask.setAssignedRoom(room);
+            mainController.taskArrayList.add(newTask);
         }
     }
 
@@ -196,6 +201,7 @@ public class Main extends Application {
             JSONObject objectDetails = new JSONObject();
             objectDetails.put("id", task.getId());
             objectDetails.put("text", task.getText());
+            objectDetails.put("room", task.getAssignedRoom().getId());
 
             objects.add(objectDetails);
         }

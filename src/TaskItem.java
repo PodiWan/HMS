@@ -37,7 +37,7 @@ public class TaskItem extends Pane {
                     Main.mainController.activityMenu.getContent().getChildren().add(informationLabel);
                     Main.mainController.taskArrayList.remove(this.heldTask);
                     Main.mainController.taskMenu.getContent().getChildren().remove(i);
-                    if(this.heldTask.getAssignedRoom() != null && this.heldTask.getAssignedRoom().getState() == Room.State.TO_CLEAN){
+                    if(this.heldTask.getAssignedRoom() != null) {
                         this.heldTask.getAssignedRoom().setState(Room.State.CLEAN);
                     }
                     Main.writeTasks();
