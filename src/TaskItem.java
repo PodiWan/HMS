@@ -41,6 +41,8 @@ public class TaskItem extends Pane {
                         this.heldTask.getAssignedRoom().setState(Room.State.CLEAN);
                     }
                     Main.writeTasks();
+                    Main.writeRooms();
+                    MainForm.hm.updateMap();
                 }
         });
 
@@ -54,6 +56,8 @@ public class TaskItem extends Pane {
                     Main.mainController.taskArrayList.remove(i);
                     Main.mainController.taskMenu.getContent().getChildren().remove(i);
                     Main.writeTasks();
+                    Main.writeRooms();
+                    MainForm.hm.updateMap();
                 }
         });
     }

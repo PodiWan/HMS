@@ -208,6 +208,28 @@ public class Main extends Application {
         }
     }
 
+    public static void writeRooms(){
+        JSONObject fileObject = new JSONObject();
+        JSONArray objects = new JSONArray();
+        for(var room : Main.mainController.roomArrayList) {
+            JSONObject objectDetails = new JSONObject();
+            objectDetails.put("id", room.getId());
+            objectDetails.put("floor", room.getFloor());
+            objectDetails.put("number", room.getNumber());
+            objectDetails.put("price", room.getPrice());
+            objectDetails.put("state", room.getStateString());
+
+            objects.add(objectDetails);
+        }
+        fileObject.put("room", objects);
+
+        try (FileWriter file = new FileWriter("src/json/room.json")) {
+            file.write(fileObject.toJSONString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void start(Stage primaryStage){
 

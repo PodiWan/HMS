@@ -97,15 +97,16 @@ public class Room {
 
         MainForm.hm.updateMap();
         MainForm.hm.highlightRoom(this);
+        Main.writeRooms();
     }
 
-    public void setState(String state){
-        if(state.equals("clean"))
-            this.setState(State.CLEAN);
-        else if(state.equals("not-clean"))
-            this.setState(State.TO_CLEAN);
-        else if(state.equals("underconstruction"))
-            this.setState(State.UNDER_CONSTRUCTION);
+    public void setState(String stateString){
+        if(stateString.equals("To clean"))
+            this.state = State.TO_CLEAN;
+        else if(stateString.equals("Under construction"))
+            this.state = State.UNDER_CONSTRUCTION;
+        else
+            this.state = State.CLEAN;
     }
 
     Room(int id, int floor, int number, int price){
