@@ -43,7 +43,7 @@ public class LoginForm {
         rect.setHeight(rectHeight);
         rect.setFill(Color.web("#349AF7"));
         root.getChildren().add(rect);
-        root.setStyle("-fx-background-color: #FCFCFC");
+        root.setStyle("-fx-background-color: #FCFCFC;");
 
         AnimationTimer timer =
                 new AnimationTimer() {
@@ -82,8 +82,11 @@ public class LoginForm {
         btnLogin.setLayoutX(primaryStage.getMaxWidth() - 20);
         EventHandler<ActionEvent> buttonClick = e -> {
             for(var user : Main.mainController.receptionistArrayList)
-                if(Integer.parseInt(userField.getText()) == user.getId() && passwordField.getText().equals(user.getPassword()))
+                if(Integer.parseInt(userField.getText()) == user.getId() && passwordField.getText().equals(user.getPassword())) {
                     Main.mainController.activeReceptionist = user;
+                    for(var booking : Main.mainController.bookingArrayList)
+                        Main.mainController.sideMenu.getItemList().add(new BookingItem(booking));
+                }
 
             if(Main.mainController.activeReceptionist != null) {
                 primaryStage.close();

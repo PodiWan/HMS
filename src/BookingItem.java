@@ -71,7 +71,10 @@ public class BookingItem extends BorderPane {
                 }
             }
         });
-        contextMenu.getItems().addAll(menuItemDelete, menuItemCheckOut);
+        if(!Main.mainController.activeReceptionist.isAdmin())
+            contextMenu.getItems().addAll(menuItemDelete, menuItemCheckOut);
+        else
+            contextMenu.getItems().add(menuItemCheckOut);
         this.setOnMouseClicked(mouseEvent -> {
             //when left-clicked
             if(mouseEvent.getButton() == MouseButton.PRIMARY) {
