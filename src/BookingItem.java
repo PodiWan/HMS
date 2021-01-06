@@ -63,6 +63,7 @@ public class BookingItem extends BorderPane {
                                 ": checked-out booking #" + Main.mainController.bookingArrayList.get(i).getId());
                         informationLabel.setId("activity-log-content");
                         Main.mainController.activityMenu.getContent().getChildren().add(informationLabel);
+                        this.heldBooking.getBookedRoom().setState(Room.State.TO_CLEAN);
                         Main.mainController.bookingArrayList.remove(this.heldBooking);
                         Main.mainController.sideMenu.getContent().getChildren().remove(i);
                         Main.writeBookings();

@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.time.Period;
+import java.util.regex.Pattern;
 
 public class CheckOutMenu {
 
@@ -72,7 +73,7 @@ public class CheckOutMenu {
         TextField additionalCostsField = new TextField();
         additionalCostsField.setPromptText("e.g.: 10");
         additionalCostsField.textProperty().addListener((obs, oldValue, newValue) -> {
-            if(!additionalCostsField.getText().isEmpty() && additionalCostsField.getText().equals("-")) {
+            if(!additionalCostsField.getText().isEmpty() && Pattern.matches("[0-9]+", additionalCostsField.getText())) {
                 if (Integer.parseInt(additionalCostsField.getText()) >= 0)
                     computedPriceLabel.setText(Integer.toString(computedPrice +
                             Integer.parseInt(additionalCostsField.getText())));
@@ -111,5 +112,3 @@ public class CheckOutMenu {
         return paymentComplete;
     }
 }
-
-

@@ -7,17 +7,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.util.regex.Pattern;
-
 public class TaskMenu {
-
-    ComboBox<String> roomComboBox = new ComboBox<>();
-
-    public TaskMenu() {
-        for (var iterator : Main.mainController.roomArrayList) {
-            roomComboBox.getItems().add(iterator.getId() + ". " + iterator.getFloor() + "-" +iterator.getNumber());
-        }
-    }
 
     public void start(Stage dialogStage){
         GridPane root = new GridPane();
@@ -63,14 +53,7 @@ public class TaskMenu {
 
         HolderPane taskHolderPane = new HolderPane(taskLabel, taskField, false);
 
-        Label assignedRoom = new Label("Assigned room (optional)");
-        roomComboBox.setPromptText("Assigned room");
-        roomComboBox.prefWidthProperty().bind(detailsPane.widthProperty().multiply(0.95));
-
-        HolderPane roomHolderPane = new HolderPane(assignedRoom, roomComboBox, false);
-
         detailsPane.add(taskHolderPane, 0, 0);
-        detailsPane.add(roomHolderPane, 0, 1);
 
         root.add(leftPane, 0, 0);
         root.add(wrapperPane, 1, 0);
@@ -78,7 +61,7 @@ public class TaskMenu {
         Button btnClose = new Button("Cancel");
         btnClose.setOnAction(e -> dialogStage.close());
 
-        double initHeight = 620;
+        double initHeight = 570;
         Scene s = new Scene(root, 600, initHeight);
 
         Label errorHeader = new Label("Error!");
@@ -88,7 +71,7 @@ public class TaskMenu {
         HolderPane errorHolderPane = new HolderPane(errorHeader, errorContent, false);
         errorHolderPane.setVisible(false);
 
-        detailsPane.add(errorHolderPane, 0, 2);
+        detailsPane.add(errorHolderPane, 0, 1);
 
         Button btnSubmit = new Button("Submit");
         btnSubmit.setOnAction(e -> {
@@ -101,14 +84,6 @@ public class TaskMenu {
             else{
                 Task newTask = new Task(Main.mainController.taskMenu.getContent().getChildren().size() + 1,
                         taskField.getText());
-                if(!roomComboBox.getValue().isEmpty()){
-                    int id = Integer.parseInt(roomComboBox.getValue().split(Pattern.quote("."))[0]);
-                    for(var room : Main.mainController.roomArrayList)
-                        if(room.getId() == id) {
-                            newTask.setAssignedRoom(room);
-                            break;
-                        }
-                }
                 Main.mainController.taskArrayList.add(newTask);
                 Main.mainController.taskMenu.getContent().getChildren().add(new TaskItem(newTask));
                 Main.writeTasks();

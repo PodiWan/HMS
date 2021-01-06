@@ -120,10 +120,13 @@ public class Main extends Application {
             JSONObject taskObject = (JSONObject) booking;
             Task newTask = new Task(Integer.parseInt(taskObject.get("id").toString()),
                     taskObject.get("text").toString());
-            int id = Integer.parseInt(taskObject.get("room").toString());
-            for(var room : Main.mainController.roomArrayList)
-                if(room.getId() == id)
-                    newTask.setAssignedRoom(room);
+            String roomString = taskObject.get("room").toString();
+            if(!roomString.equals("null")) {
+                int id = Integer.parseInt(roomString);
+                for (var room : Main.mainController.roomArrayList)
+                    if (room.getId() == id)
+                        newTask.setAssignedRoom(room);
+            }
             mainController.taskArrayList.add(newTask);
         }
     }
@@ -201,7 +204,10 @@ public class Main extends Application {
             JSONObject objectDetails = new JSONObject();
             objectDetails.put("id", task.getId());
             objectDetails.put("text", task.getText());
-            objectDetails.put("room", task.getAssignedRoom().getId());
+            if(task.getAssignedRoom() != null)
+                objectDetails.put("room", task.getAssignedRoom().getId());
+            else
+                objectDetails.put("room", "null");
 
             objects.add(objectDetails);
         }

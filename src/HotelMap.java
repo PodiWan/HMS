@@ -52,8 +52,7 @@ public class HotelMap extends BorderPane {
 
                 if(e.getButton() == MouseButton.PRIMARY) {
                     if (!this.isFocused()) {
-                        if (this.currentBooking != null)
-                            parent.highlightRoom(this.currentBooking.getBookedRoom());
+                        parent.highlightRoom(this.room);
                     } else
                         parent.requestFocus();
                 }
@@ -158,17 +157,28 @@ public class HotelMap extends BorderPane {
         assert highlightRoom != null;
         highlightRoom.requestFocus();
 
-        Label personLabel = new Label("Booked by: " + highlightRoom.currentBooking.getBookingPerson().getName());
-        Label startDateLabel = new Label("Start date: " + highlightRoom.currentBooking.getBookingStart().toString());
-        Label endDateLabel = new Label("End date: " + highlightRoom.currentBooking.getBookingEnd().toString());
-        Label stateLabel = new Label("Room state: " + highlightRoom.currentBooking.getBookedRoom().getStateString());
+
+        String personString = "";
+        String startDateString = "";
+        String endDateString = "";
+        if(highlightRoom.currentBooking != null) {
+            personString = "Booked by: " + highlightRoom.currentBooking.getBookingPerson().getName();
+            startDateString = "Start date: " + highlightRoom.currentBooking.getBookingStart().toString();
+            endDateString = "End date: " + highlightRoom.currentBooking.getBookingEnd().toString();
+        }
+
+        Label personLabel = new Label(personString);
+        Label startDateLabel = new Label(startDateString);
+        Label endDateLabel = new Label(endDateString);
+
+        Label stateLabel = new Label("Room state: " + highlightRoom.room.getStateString());
         HolderPane firstHolder = new HolderPane(personLabel, startDateLabel, false);
         HolderPane secondHolder = new HolderPane(endDateLabel, stateLabel, false);
         HolderPane mainHp = new HolderPane(firstHolder, secondHolder, false);
-
         mainHp.getStyleClass().add("holder-pane");
 
         highlightRoom.setRight(mainHp);
+
         RoomTile finalHighlightRoom = highlightRoom;
         highlightRoom.focusedProperty().addListener((obs, oldVal, newVal) -> finalHighlightRoom.getChildren().remove(mainHp));
     }
