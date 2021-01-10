@@ -52,7 +52,7 @@ public class Main extends Application {
         JSONArray personJSON = ((JSONArray)jsonObject.get("person"));
         for(var person : personJSON){
             JSONObject personObject = (JSONObject) person;
-            mainController.personArrayList.add(new Person(Integer.parseInt(personObject.get("id").toString()),
+            mainController.customerArrayList.add(new Customer(Integer.parseInt(personObject.get("id").toString()),
                     personObject.get("name").toString(), personObject.get("country").toString(),
                     personObject.get("phone-number").toString(), personObject.get("NID").toString(),
                     personObject.get("email").toString()));
@@ -154,7 +154,7 @@ public class Main extends Application {
     public static void writeCustomers(){
         JSONObject customerFile = new JSONObject();
         JSONArray customers = new JSONArray();
-        for(var customer : Main.mainController.personArrayList) {
+        for(var customer : Main.mainController.customerArrayList) {
             JSONObject customerDetails = new JSONObject();
             customerDetails.put("id", customer.getId());
             customerDetails.put("name", customer.getName());

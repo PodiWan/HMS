@@ -1,4 +1,4 @@
-public class Person {
+public class Customer {
     private String name;
     private int id;
     private String country;
@@ -60,10 +60,10 @@ public class Person {
     }
 
     public static void setOverallId(int overallId) {
-        Person.overallId = overallId;
+        Customer.overallId = overallId;
     }
 
-    public Person(int id, String name, String country, String phoneNumber, String NID, String email){
+    public Customer(int id, String name, String country, String phoneNumber, String NID, String email){
         ++overallId;
         this.id = id;
         this.name = name;
@@ -73,15 +73,15 @@ public class Person {
         this.email = email;
     }
 
-    public Person(String name){
+    public Customer(String name){
         this(++overallId, name, null, null, null, null);
     }
 
-    public Person(int id){
+    public Customer(int id){
         this(id, null, null, null, null, null);
     }
 
-    public Person(){
+    public Customer(){
         this(null);
     }
 }

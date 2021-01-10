@@ -10,7 +10,8 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import java.awt.*;
 import java.util.Collections;
 
@@ -205,6 +206,14 @@ public class MainForm {
         receptionistPaneCenter.setWrapText(true);
         receptionistPaneCenter.setStyle("-fx-font-size: 2.5em; -fx-padding: 0 1.5em;");
         receptionistPane.setCenter(receptionistPaneCenter);
+
+        HBox logoHBox = new HBox();
+        Image logo = new Image("images/logo.png");
+        ImageView imageView = new ImageView();
+        imageView.setImage(logo);
+        logoHBox.getChildren().add(imageView);
+        logoHBox.setAlignment(Pos.CENTER);
+        receptionistPane.setBottom(logoHBox);
 
         ColumnConstraints activityPaneConstraint = new ColumnConstraints();
         activityPaneConstraint.setPercentWidth(50);

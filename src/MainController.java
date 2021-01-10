@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class MainController {
-    ArrayList<Person> personArrayList = new ArrayList<>();
+    ArrayList<Customer> customerArrayList = new ArrayList<>();
     ArrayList<Room> roomArrayList = new ArrayList<>();
     ArrayList<Receptionist> receptionistArrayList = new ArrayList<>();
     ArrayList<Booking> bookingArrayList = new ArrayList<>();

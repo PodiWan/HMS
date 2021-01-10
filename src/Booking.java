@@ -5,7 +5,7 @@ public class Booking {
     private static int overallId = 0;
     private Room bookedRoom;
     private Receptionist bookingReceptionist;
-    private Person bookingPerson;
+    private Customer bookingCustomer;
     private LocalDate bookingStart;
     private LocalDate bookingEnd;
 
@@ -41,12 +41,12 @@ public class Booking {
         this.bookingReceptionist = bookingReceptionist;
     }
 
-    public Person getBookingPerson() {
-        return bookingPerson;
+    public Customer getBookingPerson() {
+        return bookingCustomer;
     }
 
-    public void setBookingPerson(Person bookingPerson) {
-        this.bookingPerson = bookingPerson;
+    public void setBookingPerson(Customer bookingCustomer) {
+        this.bookingCustomer = bookingCustomer;
     }
 
     public LocalDate getBookingStart() {
@@ -70,7 +70,7 @@ public class Booking {
         this.id = id;
         this.bookedRoom = Main.mainController.roomArrayList.get(room - 1);
         this.bookingReceptionist = new Receptionist();
-        this.bookingPerson = Main.mainController.personArrayList.get(person - 1);
+        this.bookingCustomer = Main.mainController.customerArrayList.get(person - 1);
         this.bookingStart = bookingStart;
         this.bookingEnd = bookingEnd;
     }

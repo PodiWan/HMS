@@ -10,20 +10,20 @@ import java.util.regex.Pattern;
 
 public class CustomerMenu {
 
-    private Person newCustomer;
+    private Customer newCustomer;
 
-    public Person getNewCustomer() {
+    public Customer getNewCustomer() {
         return newCustomer;
     }
 
-    public void setNewCustomer(Person newCustomer) {
+    public void setNewCustomer(Customer newCustomer) {
         this.newCustomer = newCustomer;
     }
 
     private final double initHeight = 700;
 
     public void start(Stage dialogStage){
-        newCustomer = new Person();
+        newCustomer = new Customer();
 
         GridPane root = new GridPane();
         ColumnConstraints leftColumn = new ColumnConstraints();
@@ -162,7 +162,7 @@ public class CustomerMenu {
                             newCustomer.setPhoneNumber(phoneField.getText());
                             newCustomer.setNID(nidField.getText());
                             newCustomer.setEmail(emailField.getText());
-                            Main.mainController.personArrayList.add(newCustomer);
+                            Main.mainController.customerArrayList.add(newCustomer);
                             Label informationLabel = new Label(LocalDate.now().toString() +
                                     ": added the customer #" + newCustomer.getId());
                             informationLabel.setId("activity-log-content");

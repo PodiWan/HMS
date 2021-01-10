@@ -1,7 +1,5 @@
 import javafx.application.Platform;
-import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.geometry.Insets;
@@ -50,7 +48,7 @@ public class BookingMenu {
         personComboBox.setEditable(true);
 
         ArrayList<String> options = new ArrayList<>();
-        for (var iterator : Main.mainController.personArrayList)
+        for (var iterator : Main.mainController.customerArrayList)
             options.add(iterator.getId() + ". " + iterator.getName());
 
 
@@ -130,8 +128,8 @@ public class BookingMenu {
 
         HolderPane receptionistHolderPane = new HolderPane(receptionistLabel, receptionistIdLabel, false);
 
-        Label personLabel = new Label("Person");
-        personComboBox.setPromptText("Person");
+        Label personLabel = new Label("Customer");
+        personComboBox.setPromptText("Customer");
         personComboBox.prefWidthProperty().bind(detailsPane.widthProperty().multiply(0.95));
 
         HolderPane personHolderPane = new HolderPane(personLabel, personComboBox, false);
