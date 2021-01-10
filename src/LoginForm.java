@@ -19,7 +19,7 @@ import javafx.stage.StageStyle;
 public class LoginForm {
     public void start(Stage primaryStage){
         int formWidth = 400;
-        int formHeight = 275;
+        int formHeight = 350;
 
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setX((Screen.getPrimary().getBounds().getWidth() - formWidth) / 2);
@@ -78,14 +78,27 @@ public class LoginForm {
         PasswordField passwordField = new PasswordField();
         grid.add(passwordField, 1, 2);
 
+        Label errorHeader = new Label("Incorrect credentials!");
+        errorHeader.getStyleClass().add("error-label");
+        Label errorContent = new Label();
+        errorContent.getStyleClass().add("error-label");
+        HolderPane errorHolderPane = new HolderPane(errorHeader, errorContent, false);
+        errorHolderPane.setVisible(false);
+
+        grid.add(errorHolderPane, 1, 3);
+
         Button btnLogin = new Button("Login");
         btnLogin.setLayoutX(primaryStage.getMaxWidth() - 20);
         EventHandler<ActionEvent> buttonClick = e -> {
             for(var user : Main.mainController.receptionistArrayList)
-                if(Integer.parseInt(userField.getText()) == user.getId() && passwordField.getText().equals(user.getPassword())) {
-                    Main.mainController.activeReceptionist = user;
-                    for(var booking : Main.mainController.bookingArrayList)
-                        Main.mainController.sideMenu.getItemList().add(new BookingItem(booking));
+                if(Integer.parseInt(userField.getText()) == user.getId()) {
+                    if(passwordField.getText().equals(user.getPassword())) {
+                        Main.mainController.activeReceptionist = user;
+                        for(var booking : Main.mainController.bookingArrayList)
+                            Main.mainController.sideMenu.getItemList().add(new BookingItem(booking));
+                    }
+                    else
+                        errorHolderPane.setVisible(true);
                 }
 
             if(Main.mainController.activeReceptionist != null) {

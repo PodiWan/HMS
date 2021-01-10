@@ -68,7 +68,9 @@ public class Booking {
     public Booking(int id, int room, int receptionist, int person, LocalDate bookingStart, LocalDate bookingEnd){
         ++overallId;
         this.id = id;
-        this.bookedRoom = Main.mainController.roomArrayList.get(room - 1);
+        for(var rooms : Main.mainController.roomArrayList)
+            if(rooms.getId() == room)
+                this.bookedRoom = rooms;
         this.bookingReceptionist = new Receptionist();
         this.bookingCustomer = Main.mainController.customerArrayList.get(person - 1);
         this.bookingStart = bookingStart;
