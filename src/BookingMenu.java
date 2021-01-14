@@ -34,14 +34,14 @@ public class BookingMenu {
     BookingMenu(){
         //fill the combobox options with the rooms
         for (var iterator : Main.mainController.roomArrayList) {
-            boolean booked = false;
+            boolean available = false;
             for(var booking : Main.mainController.bookingArrayList) {
                 if (booking.getBookedRoom().getId() == iterator.getId()) {
-                    booked = true;
+                    available = true;
                     break;
                 }
             }
-            if(!booked)
+            if(!available && iterator.getState() != Room.State.UNDER_CONSTRUCTION)
                 roomComboBox.getItems().add(iterator.getId() + ". " + iterator.getFloor() + "-" +iterator.getNumber());
         }
 
